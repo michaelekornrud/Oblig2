@@ -60,11 +60,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if (value == null) { //Sjekker om nåverende verdi er null
               countNullValues++; //Oppdaterer antall verdier som er null
 
-            } else if (tom()){ //Hvis verdien ikke er null, oppdateres tabellen
+            } else if (tom()){ //Hvis verdien ikke er null, oppdateres første verdi.
                 Node<T>  node = new Node<>(value, null, null);
                 hode = hale = node; //oppdaterer noden
                 antall++; //oppdaterer antall verdier som ikke er null
-            } else {
+            } else { //Hvis verdien ikke er null, oppdatreres siste verdi i tabellen. 
                 Node <T> node = new Node<>(value, hale, null);
                 hale.neste = node;
                 hale = node;
