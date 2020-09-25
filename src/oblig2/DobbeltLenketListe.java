@@ -61,14 +61,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
               countNullValues++; //Oppdaterer antall verdier som er null
 
             } else if (tom()){ //Hvis verdien ikke er null, oppdateres første verdi.
-                Node<T>  node = new Node<>(value, null, null);
+                Node<T>  node = new Node<>(value, hode, null);
                 hode = hale = node; //oppdaterer noden
                 antall++; //oppdaterer antall verdier som ikke er null
-            } else { //Hvis verdien ikke er null, oppdatreres siste verdi i tabellen. 
+            } else { //Hvis verdien ikke er null, oppdatreres siste verdi i tabellen.
                 Node <T> node = new Node<>(value, hale, null);
                 hale.neste = node;
                 hale = node;
-
             }
         }
         //System.out.println("Antall null-verdier: "+countNullValues);
