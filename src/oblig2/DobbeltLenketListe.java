@@ -36,7 +36,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        throw new UnsupportedOperationException();
+       hode = hale = null;
+       antall = 0;
+       endringer = 0;
     }
 
     public DobbeltLenketListe(T[] a) {
@@ -53,8 +55,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public int antall() {
-        throw new UnsupportedOperationException();
-    }
+        if (tom()){
+            return 0;
+        }
+        Node current = hode;
+
+        while (current.neste != null){
+            current = current.neste; //oppdaterer det nåverende tallet.
+            antall++; //oppdaterer antall
+        }
+        return antall;
+        }
+
 
 
     /**
@@ -63,7 +75,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public boolean tom() {
-        throw new UnsupportedOperationException();
+        if (antall == 0){
+            return true;
+        }
+        else return false;
     }
 
     @Override
