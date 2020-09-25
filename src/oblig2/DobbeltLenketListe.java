@@ -6,6 +6,7 @@ package oblig2;
 import java.util.Comparator;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -41,9 +42,43 @@ public class DobbeltLenketListe<T> implements Liste<T> {
        endringer = 0;
     }
 
+
+    //Konstrukttør som skal lage en dobbeltlenket liste med verdiene fra tabellen a. Verdiene skal ligge i samme
+    //rekkefølge i listen som i tabellen
+    //Hvis a er null, kastes det et avvik.
+    //Hvis a inneholder en eller flere null-verdier, skal de ikke tas med. DVS at listen skal inneholde de verdiene fra a som ikke er null
+    //Hvis alle verdiene i a er null, får vi en tom liste.
+    //hode må peke til den første i listen, og hale må peke til den siste.
     public DobbeltLenketListe(T[] a) {
-        throw new UnsupportedOperationException();
+        //Kaster et NullPointerException hvis tabellen er tom
+        //Eller hvos tabellen bare inneholder "null-verdier".
+        Objects.requireNonNull(a, "Tabellen a er Null!");
+        int countNullValues = 0; //Antall verdier som er null
+
+
+        for (T value : a) { //looper gjennom tabellen med T verdien
+            if (value == null) { //Sjekker om nåverende verdi er null
+              countNullValues++; //Oppdaterer antall verdier som er null
+
+            } else if (tom()){ //Hvis verdien ikke er null, oppdateres tabellen
+                Node<T>  node = new Node<>(value, null, null);
+                hode = hale = node; //oppdaterer noden
+                antall++; //oppdaterer antall verdier som ikke er null
+            } else {
+                Node <T> node = new Node<>(value, hale, null);
+                hale.neste = node;
+                hale = node;
+
+            }
+        }
+        //System.out.println("Antall null-verdier: "+countNullValues);
+        //System.out.println("Antall definerte verdier: "+antall);
     }
+
+
+
+
+
 
     public Liste<T> subliste(int fra, int til){
         throw new UnsupportedOperationException();
