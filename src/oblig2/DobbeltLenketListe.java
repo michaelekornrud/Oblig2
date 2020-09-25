@@ -47,11 +47,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     *
+     * @return antall verdier i listen
+     */
     @Override
     public int antall() {
         throw new UnsupportedOperationException();
     }
 
+
+    /**
+     *
+     * @return true/false avhengig av om listen er tom eller ikke
+     */
     @Override
     public boolean tom() {
         throw new UnsupportedOperationException();
@@ -102,11 +111,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+
+    /**
+     *
+     * @return en tegnstreng med listens verdier
+     */
     @Override
     public String toString() {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     *
+     * @return samme tegnstreng som i toString, men i omvendt rekkefølge
+     */
     public String omvendtString() {
         throw new UnsupportedOperationException();
     }
