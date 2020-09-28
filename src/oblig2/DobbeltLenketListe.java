@@ -172,6 +172,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
 
+        Node <T> node = hode;
+
+        while (node != null){
+            stringBuilder.append(node.verdi);
+            node = node.neste;
+        }
+
 
         stringBuilder.append("]"); // Avslutter tegnestrengen []
         return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
@@ -187,6 +194,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
 
+        Node <T> node = hale;
+
+        while (node != null){
+            stringBuilder.append(node.verdi);
+            node = node.forrige;
+        }
 
         stringBuilder.append("]"); // Avslutter tegnestrengen []
         return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
