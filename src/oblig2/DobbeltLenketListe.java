@@ -167,7 +167,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
+
+        
+        stringBuilder.append("]"); // Avslutter tegnestrengen []
+        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
     }
 
     /**
