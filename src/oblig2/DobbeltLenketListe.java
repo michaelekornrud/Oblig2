@@ -123,7 +123,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Dersom listen er tom, skal både hode og hale peke på elementet som blir lagt til
         //Hvis listen inneholder verdier fra før skal kun hale-pekeren peke på det nye elementet.
         //Antallet skal økes etter ny innlegging.
-        throw new UnsupportedOperationException();
+
+        Liste<String> liste = new DobbeltLenketListe<>();
+        Node current = hale;
+
+        for (Objects.requireNonNull(verdi)) {
+            if (verdi != null && liste.antall() != 0) {
+                liste[hale] = verdi;
+                return true;
+            } else if (liste.antall() = tom()) {
+                liste[current] = verdi;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     @Override
