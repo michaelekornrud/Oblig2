@@ -172,7 +172,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
 
-        
+
         stringBuilder.append("]"); // Avslutter tegnestrengen []
         return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
     }
@@ -182,7 +182,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * @return samme tegnstreng som i toString, men i omvendt rekkefølge
      */
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
+
+
+        stringBuilder.append("]"); // Avslutter tegnestrengen []
+        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
     }
 
     @Override
