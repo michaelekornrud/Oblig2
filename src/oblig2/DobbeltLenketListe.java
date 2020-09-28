@@ -117,6 +117,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean leggInn(T verdi) {
+        //Kast avvik dersom verdi == null (tom verdi). Bruk RequireNonNull fra Objects.
+        //Skal legge inn en node med oppgitt verdi bakerst i listen og returnere true
+        //Skal skille mellom tomme lister og lister med innhold
+        //Dersom listen er tom, skal både hode og hale peke på elementet som blir lagt til
+        //Hvis listen inneholder verdier fra før skal kun hale-pekeren peke på det nye elementet.
+        //Antallet skal økes etter ny innlegging.
         throw new UnsupportedOperationException();
     }
 
