@@ -125,50 +125,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
          Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
 
           //Definerer en ny node
-          Node <T> node = new Node<>(verdi, null, null);
+          Node <T> node = new Node<>(verdi);
 
 
-           //Tilfelle 1: At listen på forhånd er tom
+           //Tilfelle 1: Hvis listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
-            hode = node; //oppdaterer hode
-            hale = node; //oppdarerer hale
+            //oppdaterer verdiene
+            hode = node;
+            hale = hode;
+        }
 
+            //Tilfelle 2: Hvis listen ikke er tom
+            else {
+            //oppdaterer verdiene
+            node.forrige = hale;
+            hale.neste = node;
+            hale = node;
+        }
             antall++;
             endringer++;
             return true;
         }
-
-            //Tilfelle 2: At listen ikke er tom
-            else
-                //oppdaterer verdiene
-                node.forrige = hale;
-                hale.neste = node;
-                hale = node;
-
-                endringer++;
-                antall++;
-                return true;
-        }
-
-        /*Liste<String> liste = new DobbeltLenketListe<>();
-        Node tail = hale;
-        Node head = hode;
-        T nyVerdi = Objects.requireNonNull(verdi);
-
-            if (liste.antall() != 0) {
-                tail = new Node(nyVerdi);
-                return true;
-            }
-
-            else if (liste.antall() == 0) {
-                tail = new Node(nyVerdi);
-                head = tail;
-                return true;
-            }
-
-            else {
-                return false;
-            }*/
 
 
 
