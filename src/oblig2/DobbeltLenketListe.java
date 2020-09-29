@@ -204,7 +204,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //oppretter ny node som med startverdi hode.
         //Mens node != null og hvis noden sin nåverende verdi = inputverdi, returnerer metoden indeksen
-        for (Node<T> node = hode; node != null; ){
+        for (Node<T> node = hode; node != null;){
             if (node.verdi.equals(value)){
                 return index;
             }
@@ -240,7 +240,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Skal ikke kastes unntak hvis verdi er mull, men returnere false.
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        if (verdi == null){
+            return false;
+        }
+        return false;
     }
 
 
@@ -248,14 +251,40 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Skal fjerne og returnere verdien på gitt ideks
     @Override
     public T fjern(int indeks) {
+    indeksKontroll(indeks, false);
+    Node<T> node;
 
         //Tilfelle 1: Den første fjernes
+        if (indeks == 0) { //Hvis indeksen er 0 (første tallet i listen, dvs hode)
+            node = hode; //gir noden verdien til hode (indeks 0)
+            hode = hode.neste; //oppdaterer hode til at den får verdien til den neste verdien i listen
+            hode.forrige = null; //Fjerner verdien til indeks 0 (gir den verdien null)
+        }
         //Tilfelle 2: Den siste fjernes
+        else if (indeks == antall - 1){ //Hvis indeksen er det siste tallet i listen
+            node = hale; //Da er noden = halen (siste verdien i listen)
+            hale = hale.forrige; //Oppdaterer verdien til halen -> verdien til antall-2
+            hale.neste = null; //fjerner den gamle ferdien til indeksen
+        }
         //Tilfelle 3: En verdi mellom to andre fjernes
+        else
+        {
+            node = finnNode(indeks);
+            node = node.neste;
+            node = node.forrige;
+        }
         //Antall skal reduseres --
         //endringer skal økes ++
-        throw new UnsupportedOperationException();
-    }
+        antall--;
+        endringer++;
+        return node.verdi;
+        }
+
+
+
+
+
+
 
     @Override
     public void nullstill() {
