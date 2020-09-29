@@ -128,9 +128,35 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Hvis listen inneholder verdier fra før skal kun hale-pekeren peke på det nye elementet.
         //Antallet skal økes etter ny innlegging.
 
+        //bruker requireNonNull for å kaste avvik.
+          Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
 
+          //Definerer en ny node
+          Node <T> node = new Node<>(verdi, null, null);
 
-        Liste<String> liste = new DobbeltLenketListe<>();
+           //Tilfelle 1: At listen på forhånd er tom
+        if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
+            hode = node; //oppdaterer hode
+            hale = node; //oppdarerer hale
+
+            antall++;
+            endringer++;
+            return true;
+        }
+
+            //Tilfelle 2: At listen ikke er tom
+            else
+                //oppdaterer verdiene
+                node.forrige = hale;
+                hale.neste = node;
+                hale = node;
+
+                endringer++;
+                antall++;
+                return true;
+        }
+
+        /*Liste<String> liste = new DobbeltLenketListe<>();
         Node tail = hale;
         Node head = hode;
         T nyVerdi = Objects.requireNonNull(verdi);
@@ -148,9 +174,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
             else {
                 return false;
-            }
+            }*/
 
-    }
+
 
     @Override
     public void leggInn(int indeks, T verdi) {
@@ -258,17 +284,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
-        //Lager er klammeparentes der verdiene senere skal legges inn i med skille ", "
-        StringJoiner stringJoiner = new StringJoiner(", ", "[","]");
+        StringBuilder stringBuilder = new StringBuilder("[");
+
 
         Node <T> node = hode; //Definerer node som hode (starten av listen)
 
         while (node != null){ //Hvis verdien (noden) ikke er null, så..
-            stringJoiner.add((CharSequence) node.verdi); //legger til ny verdi i klammeparantesen (strinJoiner)
+            stringBuilder.append(",").append(" ").append(node);
             node = node.neste; //Hopper videre til enste verdi
         }
-
-        return stringJoiner.toString(); //Returnerer tegnestringen med innhold.
+        stringBuilder.append("]");
+        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
     }
 
     /**
@@ -277,20 +303,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * sin verdi inn i strengen, da får vi den omvendte rekkefølgen.
      * @return samme tegnstreng som i toString, men i omvendt rekkefølge
      */
+
     public String omvendtString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
         // Setter opp en kolonne der verdiene senere skal settes inn.
-        StringJoiner stringJoiner = new StringJoiner(", ","[", "]" );
+        StringBuilder stringBuilder = new StringBuilder("[");
+
 
         Node <T> node = hale; //Definerer noden til hale (slutten av listen)
 
         while (node != null){ //Hvis verdien (noden) ikke er null, så...
-            stringJoiner.add((CharSequence) node.verdi); //Hvis ikke verdien er null, legges den inn i kolonnen
+            //stringJoiner.add((CharSequence) node.verdi); //Hvis ikke verdien er null, legges den inn i kolonnen
+            stringBuilder.append(",").append(" ").append(node);
             node = node.forrige; //Hopper videre til neste verdi
         }
 
-        return stringJoiner.toString(); //Returnerer tegnestringen med innhold.
+        stringBuilder.append("]");
+        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
     }
 
     @Override
