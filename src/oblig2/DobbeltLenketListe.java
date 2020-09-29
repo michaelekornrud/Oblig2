@@ -185,9 +185,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         // returnere noe her
     }
 
+    /**
+     * Henter nodens indeks og verdien dens
+     * Sjekker indeks.
+     * @param indeks
+     * @return
+     */
     @Override
     public T hent(int indeks) {
-        indeksKontroll(indeks, false);
+        if (indeks == -1) {
+            indeksKontroll(indeks, false);
+        }
         return finnNode(indeks).verdi;
     }
 
@@ -212,9 +220,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return -1; //returnerer -1 hvis verdien ikke er funner  if(!node.verdi.equals(value))
     }
 
+    /**
+     * Passer på at man ikke kan legge inn null-verdier.
+     * Metoden skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
+     * Sjekker indeks og variabelen endringer økes.
+     * @param indeks
+     * @param nyverdi
+     * @return
+     */
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(nyverdi, "Null-verdier er ikke tillatt her");
     }
 
     @Override
