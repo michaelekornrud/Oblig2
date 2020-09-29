@@ -24,6 +24,8 @@ public class Main {
         DobbeltLenketListe<String> l2 = new DobbeltLenketListe<>(s2);
         DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
 
+
+
         //System.out.println(l1.toString()+ " "+l2.toString()+" "+l3.toString()+" "+l1.omvendtString()+" "
         //+l2.omvendtString()+" "+l3.omvendtString());
         System.out.println(l1.omvendtString()+" "+l2.omvendtString()+" "+l3.omvendtString());
