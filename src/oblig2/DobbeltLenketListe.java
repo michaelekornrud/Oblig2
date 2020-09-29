@@ -199,17 +199,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int indeksTil(T value) {
 
-        Node <T> node = hode; //definerer noden som hode (starten) av listen
+       // Node <T> node = hode; //definerer noden som hode (starten) av listen
         int index = 0; //definerer en index. (hjelpevariabel) som skal returneres
 
-        //Sjekker om verdi er null eller ikke
-        while (node != null) {
-           if (node.verdi.equals(value)) {  //Sjekker om nåverende node sin verdi = inputverdi
-           return index; //returnerer indeksen til verdien
-    }
-        node = node.neste; //hopper videre til neste verdi
-        index++; //indeksen går videre (+1)
-}
+        //oppretter ny node som med startverdi hode.
+        //Mens node != null og hvis noden sin nåverende verdi = inputverdi, returnerer metoden indeksen
+        for (Node<T> node = hode; node != null; ){
+            if (node.verdi.equals(value)){
+                return index;
+            }
+            //Hvis ikke noden sin nåverende verdi = input verdi, går noden videre til neste verdi og indeksen oppdateres
+            else {
+                node = node.neste;
+                index++;
+            }
+        }
 
         return -1; //returnerer -1 hvis verdien ikke er funner  if(!node.verdi.equals(value))
     }
