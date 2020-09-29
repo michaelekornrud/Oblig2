@@ -121,15 +121,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public boolean leggInn(T verdi) {
-        //Kast avvik dersom verdi == null (tom verdi). Bruk RequireNonNull fra Objects.
-        //Skal legge inn en node med oppgitt verdi bakerst i listen og returnere true
-        //Skal skille mellom tomme lister og lister med innhold
-        //Dersom listen er tom, skal både hode og hale peke på elementet som blir lagt til
-        //Hvis listen inneholder verdier fra før skal kun hale-pekeren peke på det nye elementet.
-        //Antallet skal økes etter ny innlegging.
-
         //bruker requireNonNull for å kaste avvik.
-          Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
+         Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
 
           //Definerer en ny node
           Node <T> node = new Node<>(verdi, null, null);
@@ -176,6 +169,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             else {
                 return false;
             }*/
+
 
 
 
@@ -284,22 +278,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public String toString() {
-        if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+        //Hvis listen er tom, returner []
+        if (tom()) return "[]";
 
+        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
 
-        Node <T> node = hode; //Definerer node som hode (starten av listen)
-        stringBuilder.append(node.verdi);
-        node = node.neste;
-
-        while (node != null){ //Hvis verdien (noden) ikke er null, så..
-            stringBuilder.append(", ").append(node); //leggert til verdien i tegnestrengen med, og mellomrom
-            node = node.neste; //Hopper videre til enste verdi
+        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
+        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
+        for (Node<T> node = hode; node != null; node = node.neste) {
+            stringJoiner.add(node.verdi.toString());
         }
-        stringBuilder.append("]");
-        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
+
+
+        //Returnerer stringJoiner/listen med oppdaterte verdier.
+        return stringJoiner.toString();
     }
 
     /**
@@ -309,7 +303,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * @return samme tegnstreng som i toString, men i omvendt rekkefølge
      */
     public String omvendtString() {
-        if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
+        /*if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
         // Setter opp en kolonne der verdiene senere skal settes inn.
         StringBuilder stringBuilder = new StringBuilder();
@@ -326,7 +320,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         stringBuilder.append("]");
-        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
+        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.*/
+
+        //Hvis listen er tom, returner []
+        if (tom()) return "[]";
+
+
+        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
+       StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+
+
+        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
+        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
+        for (Node<T> node = hale; node != null; node = node.forrige) {
+            stringJoiner.add(node.verdi.toString());
+        }
+
+        //returnerer stringjoiner/listen med oppdaterte verdier
+    return stringJoiner.toString();
     }
 
     @Override

@@ -26,9 +26,8 @@ public class Main {
 
 
 
-        //System.out.println(l1.toString()+ " "+l2.toString()+" "+l3.toString()+" "+l1.omvendtString()+" "
-        //+l2.omvendtString()+" "+l3.omvendtString());
-        System.out.println(l1.omvendtString()+" "+l2.omvendtString()+" "+l3.omvendtString());
+
+       System.out.println(l1.omvendtString()+" "+l2.omvendtString()+" "+l3.omvendtString());
 
         //// Oppgave 2 b //////////////////
         /*DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
@@ -47,8 +46,8 @@ public class Main {
 
 
         ////Ooppgave 4 ////
-        DobbeltLenketListe<String> sliste = new DobbeltLenketListe<>();
+       /* DobbeltLenketListe<String> sliste = new DobbeltLenketListe<>();
         sliste.leggInn("A");
-        System.out.println(sliste.indeksTil("A"));
+        System.out.println(sliste.indeksTil("A"));*/
     }
 }
