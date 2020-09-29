@@ -125,16 +125,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Antallet skal økes etter ny innlegging.
 
         Liste<String> liste = new DobbeltLenketListe<>();
-        Node current = hale;
+        Node tail = hale;
+        Node head = hode;
         T nyVerdi = Objects.requireNonNull(verdi);
 
-            if (verdi != null && liste.antall() != 0) {
-                liste[hale] = nyVerdi;
+            if (liste.antall() != 0) {
+                tail = new Node(nyVerdi);
                 return true;
-            } else if (liste.antall() == 0) {
-                liste[current] = nyVerdi;
+            }
+
+            else if (liste.antall() == 0) {
+                tail = new Node(nyVerdi);
+                head = tail;
                 return true;
-            } else {
+            }
+
+            else {
                 return false;
             }
 

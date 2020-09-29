@@ -6,7 +6,7 @@ public class Main {
 
         //Test av oppgave 1 a og b (antall og tom)
         //Skal returnere "0 true"
-        DobbeltLenketListe<String> listeA = new DobbeltLenketListe<>();
+        /*DobbeltLenketListe<String> listeA = new DobbeltLenketListe<>();
         System.out.println(listeA.antall()+" "+listeA.tom());
 
 
@@ -25,7 +25,7 @@ public class Main {
         DobbeltLenketListe<String> l3 = new DobbeltLenketListe<>(s3);
 
         System.out.println(l1.toString()+ " "+l2.toString()+" "+l3.toString()+" "+l1.omvendtString()+" "
-        +l2.omvendtString()+" "+l3.omvendtString());
+        +l2.omvendtString()+" "+l3.omvendtString());*/
 
         //// Oppgave 2 b //////////////////
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
