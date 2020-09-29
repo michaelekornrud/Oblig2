@@ -3,6 +3,8 @@ package oblig2;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import jdk.jshell.EvalException;
+
 import java.util.Comparator;
 
 import java.util.Iterator;
@@ -44,12 +46,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    //Konstrukttør som skal lage en dobbeltlenket liste med verdiene fra tabellen a. Verdiene skal ligge i samme
-    //rekkefølge i listen som i tabellen
-    //Hvis a er null, kastes det et avvik.
-    //Hvis a inneholder en eller flere null-verdier, skal de ikke tas med. DVS at listen skal inneholde de verdiene fra a som ikke er null
-    //Hvis alle verdiene i a er null, får vi en tom liste.
-    //hode må peke til den første i listen, og hale må peke til den siste.
+
     public DobbeltLenketListe(T[] a) {
         //Kaster et NullPointerException hvis tabellen er tom
         //Eller hvos tabellen bare inneholder "null-verdier".
@@ -154,7 +151,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+        return indeksTil(verdi) >= 0;
     }
 
     @Override
@@ -162,9 +159,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         throw new UnsupportedOperationException();
     }
 
+
+    //Oppg 4. Returnere indeksen/posisjonen til verdi hvis den finnes i listen, og returnere -1 hvis ikke.
     @Override
-    public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+    public int indeksTil(T value) {
+
+        Node <T> node = hode; //definerer noden som hode (starten) av listen
+        int index = 0; //definerer en index. (hjelpevariabel) som skal returneres
+
+        //Sjekker om verdi er null eller ikke
+        while (node != null) {
+            if (node.verdi.equals(value)) {  //Sjekker om nåverende node sin verdi = inputverdi
+               return index; //returnerer indeksen til verdien
+
+            }
+            node = node.neste; //hopper videre til neste verdi
+            index++; //indeksen går videre (+1)
+        }
+
+        return -1; //returnerer -1 hvis verdien ikke er funner  if(!node.verdi.equals(value))
     }
 
     @Override
@@ -225,7 +238,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             stringJoiner.add((CharSequence) node.verdi); //Hvis ikke verdien er null, legges den inn i kolonnen
             node = node.forrige; //Hopper videre til neste verdi
         }
-        
+
         return stringJoiner.toString(); //Returnerer tegnestringen med innhold.
     }
 
