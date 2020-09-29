@@ -85,7 +85,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     /**
-     *
+     * Sjekker om listen er tom. Hvis ikke settes første node til hode. Går gjennom listen og oppdaterer
+     * antallet ettersom vi finner neste node.
      * @return antall verdier i listen
      */
     @Override
@@ -105,7 +106,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     /**
-     *
+     * Sjekker om antallet er lik 0, og returnerer deretter.
      * @return true/false avhengig av om listen er tom eller ikke
      */
     @Override
@@ -116,6 +117,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else return false;
     }
 
+    /**
+     *
+     * @param verdi
+     * @return
+     */
     @Override
     public boolean leggInn(T verdi) {
         //Kast avvik dersom verdi == null (tom verdi). Bruk RequireNonNull fra Objects.
@@ -124,6 +130,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //Dersom listen er tom, skal både hode og hale peke på elementet som blir lagt til
         //Hvis listen inneholder verdier fra før skal kun hale-pekeren peke på det nye elementet.
         //Antallet skal økes etter ny innlegging.
+
+
 
         Liste<String> liste = new DobbeltLenketListe<>();
         Node tail = hale;
@@ -155,6 +163,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Sjekker om indeksen er mindre enn antall/2. Hvis den gjør det startes letingen fra hode
+     * og går mot høyre ved hjelp av neste-pekere.
+     * Hvis ikke skal letingen starte fra halen og gå mot venstre ved hjelp av forrige-pekere.
+     * @param indeks
+     * @return noden med den gitte indeksen/posisjonen
+     */
+
+    private Node<T> finnNode(int indeks) {
+
+        Node<T> h = hode;
+        Node<T> t = hale;
+        if(indeks < antall/2) {
+            for (int i = 0; i < indeks; i++) h = h.neste;
+            return h;
+        }
+        else {
+            for (int i = 0; i < indeks; i++) t = t.forrige;
+            return t;
+        }
+        // returnere noe her
     }
 
     @Override
@@ -189,7 +220,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     /**
-     *
+     * Sjekker først om listen er tom, og returnerer kun [] hvis den er det.
+     * Deretter lages en streng, som starter på hode,og hvis node sin verdi ikke er null,
+     * så legges verdien i strengen.
      * @return en tegnstreng med listens verdier
      */
     @Override
@@ -210,7 +243,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     /**
-     *
+     * Sjekker først om listen er tom, og retunerer [] hvis den er det.
+     * Lager strengen med Stringbuilder. Denne gangen starter vi på hale, og legger forrige node
+     * sin verdi inn i strengen, da får vi den omvendte rekkefølgen.
      * @return samme tegnstreng som i toString, men i omvendt rekkefølge
      */
     public String omvendtString() {
