@@ -43,5 +43,12 @@ public class Main {
         // [1] [1]
         // [1, 2] [2, 1]
         // [1, 2, 3] [3, 2, 1]*/
+
+
+
+        ////Ooppgave 4 ////
+        DobbeltLenketListe<String> sliste = new DobbeltLenketListe<>();
+        sliste.leggInn("A");
+        System.out.println(sliste.indeksTil("A"));
     }
 }
