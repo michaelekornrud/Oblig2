@@ -7,6 +7,7 @@ import java.util.Comparator;
 
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.StringJoiner;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -195,19 +196,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
+        //Lager er klammeparentes der verdiene senere skal legges inn i med skille ", "
+        StringJoiner stringJoiner = new StringJoiner(", ", "[","]");
 
-        Node <T> node = hode;
+        Node <T> node = hode; //Definerer node som hode (starten av listen)
 
-        while (node != null){
-            stringBuilder.append(node.verdi);
-            node = node.neste;
+        while (node != null){ //Hvis verdien (noden) ikke er null, så..
+            stringJoiner.add((CharSequence) node.verdi); //legger til ny verdi i klammeparantesen (strinJoiner)
+            node = node.neste; //Hopper videre til enste verdi
         }
 
-
-        stringBuilder.append("]"); // Avslutter tegnestrengen []
-        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
+        return stringJoiner.toString(); //Returnerer tegnestringen med innhold.
     }
 
     /**
@@ -217,18 +216,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String omvendtString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("["); // Starter tegnestrengen []. Koden etter dette skrives ut i tegnestrengen
+        // Setter opp en kolonne der verdiene senere skal settes inn.
+        StringJoiner stringJoiner = new StringJoiner(", ","[", "]" );
 
-        Node <T> node = hale;
+        Node <T> node = hale; //Definerer noden til hale (slutten av listen)
 
-        while (node != null){
-            stringBuilder.append(node.verdi);
-            node = node.forrige;
+        while (node != null){ //Hvis verdien (noden) ikke er null, så...
+            stringJoiner.add((CharSequence) node.verdi); //Hvis ikke verdien er null, legges den inn i kolonnen
+            node = node.forrige; //Hopper videre til neste verdi
         }
-
-        stringBuilder.append("]"); // Avslutter tegnestrengen []
-        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.
+        
+        return stringJoiner.toString(); //Returnerer tegnestringen med innhold.
     }
 
     @Override
