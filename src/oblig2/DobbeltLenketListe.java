@@ -134,6 +134,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
           //Definerer en ny node
           Node <T> node = new Node<>(verdi, null, null);
 
+
            //Tilfelle 1: At listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
             hode = node; //oppdaterer hode
@@ -255,7 +256,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        Objects.requireNonNull(nyverdi, "Null-verdier er ikke tillatt her");
+
+            throw new UnsupportedOperationException();
     }
 
     @Override
@@ -284,13 +286,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
-        StringBuilder stringBuilder = new StringBuilder("[");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
 
 
         Node <T> node = hode; //Definerer node som hode (starten av listen)
+        stringBuilder.append(node.verdi);
+        node = node.neste;
 
         while (node != null){ //Hvis verdien (noden) ikke er null, så..
-            stringBuilder.append(",").append(" ").append(node);
+            stringBuilder.append(", ").append(node); //leggert til verdien i tegnestrengen med, og mellomrom
             node = node.neste; //Hopper videre til enste verdi
         }
         stringBuilder.append("]");
@@ -303,19 +308,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      * sin verdi inn i strengen, da får vi den omvendte rekkefølgen.
      * @return samme tegnstreng som i toString, men i omvendt rekkefølge
      */
-
     public String omvendtString() {
         if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
 
         // Setter opp en kolonne der verdiene senere skal settes inn.
-        StringBuilder stringBuilder = new StringBuilder("[");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
 
 
         Node <T> node = hale; //Definerer noden til hale (slutten av listen)
+        stringBuilder.append(node.verdi);
+        node = node.forrige;
 
         while (node != null){ //Hvis verdien (noden) ikke er null, så...
-            //stringJoiner.add((CharSequence) node.verdi); //Hvis ikke verdien er null, legges den inn i kolonnen
-            stringBuilder.append(",").append(" ").append(node);
+            stringBuilder.append(", ").append(node); //leggert til verdien i tegnestrengen med "," og mellomrom
             node = node.forrige; //Hopper videre til neste verdi
         }
 
