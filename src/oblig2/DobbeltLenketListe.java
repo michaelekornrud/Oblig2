@@ -159,7 +159,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        return indeksTil(verdi) >= 0;
+        return indeksTil(verdi) != -1;
     }
 
     /**
@@ -201,13 +201,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         //Sjekker om verdi er null eller ikke
         while (node != null) {
-            if (node.verdi.equals(value)) {  //Sjekker om nåverende node sin verdi = inputverdi
-               return index; //returnerer indeksen til verdien
-
-            }
-            node = node.neste; //hopper videre til neste verdi
-            index++; //indeksen går videre (+1)
-        }
+           if (node.verdi.equals(value)) {  //Sjekker om nåverende node sin verdi = inputverdi
+           return index; //returnerer indeksen til verdien
+    }
+        node = node.neste; //hopper videre til neste verdi
+        index++; //indeksen går videre (+1)
+}
 
         return -1; //returnerer -1 hvis verdien ikke er funner  if(!node.verdi.equals(value))
     }
