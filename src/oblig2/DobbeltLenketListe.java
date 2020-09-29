@@ -126,18 +126,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         Liste<String> liste = new DobbeltLenketListe<>();
         Node current = hale;
+        T nyVerdi = Objects.requireNonNull(verdi);
 
-        for (Objects.requireNonNull(verdi)) {
             if (verdi != null && liste.antall() != 0) {
-                liste[hale] = verdi;
+                liste[hale] = nyVerdi;
                 return true;
-            } else if (liste.antall() = tom()) {
-                liste[current] = verdi;
+            } else if (liste.antall() == 0) {
+                liste[current] = nyVerdi;
                 return true;
             } else {
                 return false;
             }
-        }
+
     }
 
     @Override
