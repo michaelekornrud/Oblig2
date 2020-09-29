@@ -147,9 +147,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return true;
         }
 
-
-
-
     @Override
     public void leggInn(int indeks, T verdi) {
         throw new UnsupportedOperationException();
@@ -231,13 +228,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new UnsupportedOperationException();
     }
 
+
+    //oppg 6
+    //Skal fjerne verdi fra listen, og returnere true
+    //Hvis det er flere av samme verdi skal den første gitte verdien (fra hode) fjernes
+    //Hvis verdien ikke er i listen, returner false.
+    //Skal ikke kastes unntak hvis verdi er mull, men returnere false.
     @Override
     public boolean fjern(T verdi) {
         throw new UnsupportedOperationException();
     }
 
+
+    //oppg 6
+    //Skal fjerne og returnere verdien på gitt ideks
     @Override
     public T fjern(int indeks) {
+
+        //Tilfelle 1: Den første fjernes
+        //Tilfelle 2: Den siste fjernes
+        //Tilfelle 3: En verdi mellom to andre fjernes
+        //Antall skal reduseres --
+        //endringer skal økes ++
         throw new UnsupportedOperationException();
     }
 
