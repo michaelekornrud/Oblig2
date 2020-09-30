@@ -240,25 +240,32 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
         //Returnerer false hvis verdi er null
-        if (verdi == null){
+        if (verdi == null) {
             return false;
         }
 
-        Node <T> node = hode;
+        Node<T> node = hode;
 
-        while (node!= null){
-           if (node.verdi == verdi){ //Hvis verdien er lik noden sin verdi, hopp ut
-               break;
-           }
-           node = node.neste; //Går videre til neste node
+        while (node != null) {
+            if (node.verdi.equals(verdi)) { //Hvis verdien er lik noden sin verdi, hopp ut
+                break;
+            }
+
+            node = node.neste; //Går videre til neste node
         }
+
+
 
         //Når noden går ut av listen, returnerer metoden false. (node = null --> ingen flere verdier i lsiten)
         if (node == null){ return false; }
 
+        //Hvis det bare eksisterer én node i listen
+        else if (antall == 1){
+            hode = hale = null;
+        }
 
         //Hviv verdien = hode (starten av listen)
-        if (node == hode) {
+        else if (node == hode) {
             hode = hode.neste; //Går videre fra starten av tabellen
 
             //Sjekker om det bare finnes en verdi i tabellen
@@ -273,7 +280,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else if (node == hale){
             hale = hale.forrige;
             hale.neste = null;
-        } else{ node.forrige.neste = node.neste; node.neste.forrige = node.forrige;}
+        } else{
+            node.forrige.neste = node.neste;
+            node.neste.forrige = node.forrige;
+        }
+
+        node.verdi = null;
+        node.forrige = node.neste = null;
 
         antall--;
         endringer++;
@@ -286,6 +299,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T fjern(int indeks) {
     indeksKontroll(indeks, false);
+    if (tom()) return null;
     Node<T> node;
 
         //Tilfelle 1: Den første fjernes
