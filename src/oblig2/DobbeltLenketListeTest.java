@@ -137,7 +137,6 @@ class DobbeltLenketListeTest {
         }
     }
 
-
     ////// Oppgave 2 /////////////////////
     @org.junit.jupiter.api.Test
     void oppgave2() {
@@ -629,6 +628,8 @@ class DobbeltLenketListeTest {
         liste.leggInn(3, 5);  // ny verdi nest bakerst
         liste.leggInn(0, 1);  // ny verdi forrest
         liste.leggInn(6, 7);  // ny verdi legges bakerst
+
+        System.out.println(liste);
 
         if (liste.antall() != 7) {
             antallFeil++;

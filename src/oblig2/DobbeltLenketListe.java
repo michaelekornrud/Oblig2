@@ -144,9 +144,50 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return true;
         }
 
+    //Oppgave 5:
+    //Skal legge til den verdi på index fra og med 0 til og med liste.length
+    //Negative indexer og indexer som er større enn liste.length er ulovlige.
+    //Husk på de 4 tilfellene
+        // 1) Er listen tom?
+        // 2) Skal verdien legges først
+        // 3) Skal verdien legges bakerst
+        // 4) Skal verdien legges mellom to andre verdier
+    //Første peker skal peke på null, og siste peker skal peke på null
+    // Øk antall()
+    //Øk  endringer()
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
+        //bruker requireNonNull for å kaste avvik.
+        Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
+        Objects.requireNonNull(indeks, "Index må ha en verdi");
+
+        //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
+        if(indeks < 0 || indeks > antall){
+            throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
+        }
+
+        //Definerer en ny node
+        Node <T> node = new Node<>(verdi);
+
+        //Tilfelle 1: Hvis listen på forhånd er tom
+        if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
+            //oppdaterer verdiene
+            hode = node;
+            hale = hode;
+
+        }
+
+        //Tilfelle 2: Hvis listen ikke er tom
+        else {
+            //oppdaterer verdiene
+            node.forrige = hale;
+            hale.neste = node;
+            hale = node;
+
+        }
+        antall++;
+        endringer++;
+
     }
 
     @Override
