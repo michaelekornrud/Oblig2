@@ -173,18 +173,25 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
             //oppdaterer verdiene
             hode = node;
-            hale = hode;
-
+            hale = node;
         }
 
-        //Tilfelle 2: Hvis listen ikke er tom
-        else {
-            //oppdaterer verdiene
+        //Tilfelle 2: Hvis listen ikke er tom og index = 0
+        else if (indeks == 0){ //Hvis index = 0 skal verien bli lagt til før hode.
+            node.neste = hode;
+            hode.forrige = node;
+            hode = node;
+        }
+
+        //Tilfelle 3: Hvis listen ikke er tom og index = antall
+        else if (indeks == antall){ //Dersom index = antall skal verdien bli lagt til som hale
             node.forrige = hale;
             hale.neste = node;
             hale = node;
-
         }
+
+
+
         antall++;
         endringer++;
 
