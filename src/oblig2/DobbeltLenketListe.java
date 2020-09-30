@@ -166,7 +166,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
         }
 
-        //Definerer en ny node
+        //Definerer en ny node for verdi
         Node <T> node = new Node<>(verdi);
 
         //Tilfelle 1: Hvis listen på forhånd er tom
@@ -189,6 +189,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             hale.neste = node;
             hale = node;
         }
+
+        //Tilfelle 4: Hvis listen ikke er tom og 0 < index < antall
+        else {
+            //Oppretter en hjelpeNode
+            Node<T> newNode = hode;
+            for (int i = indeks; indeks < antall && indeks > 0; i++){
+                newNode = newNode.neste;
+            }
+            node.neste = newNode.neste;
+            newNode.neste = node;
+            node.forrige = newNode;
+            node.neste.forrige = node;
+        }
+
 
 
 
