@@ -2,9 +2,6 @@ package oblig2;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-
-import jdk.jshell.EvalException;
-
 import java.util.Comparator;
 
 import java.util.Iterator;
@@ -240,10 +237,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Skal ikke kastes unntak hvis verdi er mull, men returnere false.
     @Override
     public boolean fjern(T verdi) {
+
+
+        //Returnerer false hvis verdi er null
         if (verdi == null){
             return false;
         }
-        return false;
+
+        Node <T> node = hode;
+
+        while (node!= null){
+           if (node.verdi == verdi){ //Hvis verdien er lik noden sin verdi, hopp ut
+               break;
+           }
+           node = node.neste; //Går videre til neste node
+        }
+
+        //Når noden går ut av listen, returnerer metoden false. (node = null --> ingen flere verdier i lsiten)
+        if (node == null){ return false; }
+
+
+        //Hviv verdien = hode (starten av listen)
+        if (node == hode) {
+            hode = hode.neste; //Går videre fra starten av tabellen
+
+            //Sjekker om det bare finnes en verdi i tabellen
+            if (hode != null) {
+                hode.forrige = null;
+            } else {
+                hale = null;
+            }
+        }
+
+        //Hvis verdien er på slutten av tabellen
+        else if (node == hale){
+            hale = hale.forrige;
+            hale.neste = null;
+        } else{ node.forrige.neste = node.neste; node.neste.forrige = node.forrige;}
+
+        antall--;
+        endringer++;
+        return true;
     }
 
 
@@ -264,24 +298,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else if (indeks == antall - 1){ //Hvis indeksen er det siste tallet i listen
             node = hale; //Da er noden = halen (siste verdien i listen)
             hale = hale.forrige; //Oppdaterer verdien til halen -> verdien til antall-2
-            hale.neste = null; //fjerner den gamle ferdien til indeksen
+            hale.neste = null; //fjerner den gamle ferdien til indeksen (gir den verdien null)
         }
         //Tilfelle 3: En verdi mellom to andre fjernes
         else
         {
-            node = finnNode(indeks);
-            node = node.neste;
+            node = finnNode(indeks); //Finner noden ved hjelp av finnNode metoden som er lagd tidligere
+            node = node.neste; //oppdaterer verdien til noden
             node = node.forrige;
         }
         //Antall skal reduseres --
         //endringer skal økes ++
         antall--;
         endringer++;
-        return node.verdi;
+        return node.verdi; //Returnerer verdien til noden på gitt indeks
         }
-
-
-
 
 
 
