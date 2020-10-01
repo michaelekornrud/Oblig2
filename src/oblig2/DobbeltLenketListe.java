@@ -204,17 +204,27 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks) {
 
-        Node<T> h = hode;
-        Node<T> t = hale;
-        if(indeks < antall/2) {
-            for (int i = 0; i < indeks; i++) h = h.neste;
-            return h;
+        //Definerer noden
+        Node<T> node;
+
+        //Hvis indeksen er mindre eller lik midten av listen, så er node  = hode (starten av listen)
+        if(indeks <= antall/2) {
+            node = hode;
+            //Looper gjennom listen og gir noden nye verdier for å finne verdi fra gitt indeks
+            for (int i = 0; i < indeks; i++)
+           node = node.neste;
         }
+        //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
-            for (int i = 0; i < indeks; i++) t = t.forrige;
-            return t;
+            node = hale;
+            //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
+            //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
+            for (int i = antall-1; i > indeks; i--) node = node.forrige;
+
         }
-        // returnere noe her //Skal returnere indeksen noden med den gitte indeksen
+
+        //Returnerer noden på gitt indeks
+       return node;
     }
 
 
@@ -226,9 +236,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public T hent(int indeks) {
-        if (indeks == -1) {
-            indeksKontroll(indeks, false);
-        }
+     indeksKontroll(indeks, false);
         return finnNode(indeks).verdi;
     }
 
@@ -242,8 +250,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public T oppdater(int indeks, T nyverdi) {
+        //Sjekker om indeksen er en lovlig verdi
+        indeksKontroll(indeks, false);
+        //Sjekker om nyverrdi er en lovlig verdi og kaster en feilmelding hvis ikke
+        Objects.requireNonNull(nyverdi, "Feilmelding");
 
-        throw new UnsupportedOperationException();
+        //Definerer noden ved hjelp av finnNode metoden
+        Node<T> node = finnNode(indeks);
+        //Definerer den nåverende verdien (gammel verdi)
+        T verdi = node.verdi;
+
+        //Oppdaterer verdien
+        node.verdi = nyverdi;
+
+        //Endringer økes
+       endringer++;
+
+        //Returnerer gammel verdi
+        return verdi;
     }
 
 
@@ -414,13 +438,18 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     //Skal fjerne og returnere verdien på gitt ideks
     @Override
     public T fjern(int indeks) {
-        indeksKontroll(indeks, false);
-        if (tom()) return null;
-        Node<T> node;
+
+     indeksKontroll(indeks, false);
+
+        Node<T> node = hode;
+
+        //Hvis listen bare inneholder 1 verdi
+        if (antall == 1){
+            hode = hale = null;
+        }
 
         //Tilfelle 1: Den første fjernes
-        if (indeks == 0) { //Hvis indeksen er 0 (første tallet i listen, dvs hode)
-            node = hode; //gir noden verdien til hode (indeks 0)
+        else if (indeks == 0) { //Hvis indeksen er 0 (første tallet i listen, dvs hode)
             hode = hode.neste; //oppdaterer hode til at den får verdien til den neste verdien i listen
             hode.forrige = null; //Fjerner verdien til indeks 0 (gir den verdien null)
         }
@@ -437,11 +466,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             node = node.neste; //oppdaterer verdien til noden
             node = node.forrige;
         }
-        //Antall skal reduseres --
-        //endringer skal økes ++
-        antall--;
-        endringer++;
-        return node.verdi; //Returnerer verdien til noden på gitt indeks
+
+
+        T nodeVverdi = node.verdi; //Verdien som skal returneres
+        node.verdi = null;
+        node.forrige = node.neste = null;
+
+
+        antall--;   //Antall skal reduseres --
+        endringer++;  //endringer skal økes ++
+        return nodeVverdi; //Returnerer verdien til noden på gitt indeks
     }
 
 
@@ -467,7 +501,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             nodeHode = null;
         }
 
-       /* while (nodeHode!= null){
+      /* while (nodeHode!= null){
             fjern(0);
         }*/
 
