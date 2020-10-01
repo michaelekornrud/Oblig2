@@ -334,16 +334,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             //oppdaterer verdiene
 
 
-
-
-
             antall++;
             endringer++;
 
         }
-
-
-
 
 
     /*---------------------------------  Slutt på Oppgave 5    ----------------------------------------------------------*/
@@ -461,7 +455,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+
+        //metode 1 tar 7ms for å teste. 
+        //Starter i hode og går mot hale ved hjelpepekeren neste
+        Node <T> nodeHode = hode;
+
+        while ( nodeHode != null){
+            nodeHode.neste = null;
+            nodeHode.forrige = null;
+            nodeHode = null;
+        }
+
+        hode = hale = null;
+        antall = 0;
+        endringer++;
     }
 
 
@@ -498,7 +505,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
 
-        //Er ferdigkodet og skal IKKE en dres
+        //Er ferdigkodet og skal IKKE endres
         @Override
         public boolean hasNext(){
             return denne != null;
