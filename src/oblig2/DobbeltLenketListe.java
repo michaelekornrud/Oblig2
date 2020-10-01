@@ -159,12 +159,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public void leggInn(int indeks, T verdi) {
         //bruker requireNonNull for å kaste avvik.
         Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
-        Objects.requireNonNull(indeks, "Index må ha en verdi");
+
 
         //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
         if(indeks < 0 || indeks > antall){
             throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
         }
+
+
 
         //Definerer en ny node for verdi
         Node <T> node = new Node<>(verdi);
@@ -194,8 +196,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else {
             //Oppretter en hjelpeNode
             Node<T> newNode = hode;
-            for (int i = indeks; indeks < antall && indeks > 0; i++){
+            for (int i = 1; i < indeks; i++){
                 newNode = newNode.neste;
+                //newNode peker nå på noden før der den nye skal bli lagt inn.
             }
             node.neste = newNode.neste;
             newNode.neste = node;
