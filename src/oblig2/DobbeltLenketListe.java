@@ -461,22 +461,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node <T> nodeHode = hode;
 
         //Så lenge nodeHode != null, slett alle nodene
-        /*while ( nodeHode != null){
+        while ( nodeHode != null){
             nodeHode.neste = null;
             nodeHode.forrige = null;
             nodeHode = null;
-        }*/
-
-        while (nodeHode!= null){
-            fjern(0);
         }
+
+       /* while (nodeHode!= null){
+            fjern(0);
+        }*/
 
         //til slutt settes både hode og hale til null, antall til 0 og endringer økes (fra oppgtekst)
         hode = hale = null; //ingen verdier igjen i listen
         antall = 0;
         endringer++; //Det er gjort endringer
 
-        //Metode 2 gir feil i test. 
+        //Metode 2 gir feil i test. Velger derfor metode 1.
 
 
     }
