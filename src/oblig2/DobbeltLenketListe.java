@@ -456,19 +456,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void nullstill() {
 
-        //metode 1 tar 7ms for å teste. 
+        //metode 1 tar 7ms for å teste.
         //Starter i hode og går mot hale ved hjelpepekeren neste
         Node <T> nodeHode = hode;
 
-        while ( nodeHode != null){
+        //Så lenge nodeHode != null, slett alle nodene
+        /*while ( nodeHode != null){
             nodeHode.neste = null;
             nodeHode.forrige = null;
             nodeHode = null;
+        }*/
+
+        while (nodeHode!= null){
+            fjern(0);
         }
 
-        hode = hale = null;
+        //til slutt settes både hode og hale til null, antall til 0 og endringer økes (fra oppgtekst)
+        hode = hale = null; //ingen verdier igjen i listen
         antall = 0;
-        endringer++;
+        endringer++; //Det er gjort endringer
+
+        //Metode 2 gir feil i test. 
+
+
     }
 
 
