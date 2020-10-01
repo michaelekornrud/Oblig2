@@ -211,16 +211,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if(indeks <= antall/2) {
             node = hode;
             //Looper gjennom listen og gir noden nye verdier for å finne verdi fra gitt indeks
-            for (int i = 0; i < indeks; i++)
-           node = node.neste;
+            for (int i = 0; i < indeks; i++) {
+                node = node.neste;
+            }
         }
         //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
             node = hale;
             //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
             //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
-            for (int i = antall-1; i > indeks; i--) node = node.forrige;
-
+            for (int j = antall-1; j > indeks; j--){ node = node.forrige;}
         }
 
         //Returnerer noden på gitt indeks
