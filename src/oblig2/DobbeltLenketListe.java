@@ -293,8 +293,57 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-        throw new UnsupportedOperationException();
-    }
+//bruker requireNonNull for å kaste avvik.
+        Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
+        Objects.requireNonNull(indeks, "Index må ha en verdi");
+
+        //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
+        if (indeks < 0 || indeks > antall) {
+            throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
+        }
+
+        //Definerer en ny node
+        Node<T> node = new Node<>(verdi);
+
+        //Tilfelle 1: Hvis listen på forhånd er tom
+        if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
+            //oppdaterer verdiene
+            hode = node;
+            hale = hode;
+            hale = node;
+        }
+
+        //Tilfelle 2: Hvis listen ikke er tom og index = 0
+        else if (indeks == 0) { //Hvis index = 0 skal verien bli lagt til før hode.
+            node.neste = hode;
+            hode.forrige = node;
+            hode = node;
+        }
+
+        else { //Tilfelle 3: Hvis listen ikke er tom og index = antall
+                //Oppretter en hjelpeNode
+                Node<T> newNode = hode;
+                for (int i = indeks; indeks < antall && indeks > 0; i++){
+                    newNode = newNode.neste;
+                }
+                node.neste = newNode.neste;
+                newNode.neste = node;
+                node.forrige = newNode;
+                node.neste.forrige = node;
+            }
+            //oppdaterer verdiene
+
+
+
+
+
+            antall++;
+            endringer++;
+
+        }
+
+
+
 
 
     /*---------------------------------  Slutt på Oppgave 5    ----------------------------------------------------------*/
