@@ -317,49 +317,58 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void leggInn(int indeks, T verdi) {
-//bruker requireNonNull for å kaste avvik.
+        //bruker requireNonNull for å kaste avvik.
         Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
-        Objects.requireNonNull(indeks, "Index må ha en verdi");
+
 
         //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
-        if (indeks < 0 || indeks > antall) {
+        if(indeks < 0 || indeks > antall){
             throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
         }
 
-        //Definerer en ny node
-        Node<T> node = new Node<>(verdi);
+        //Definerer en ny node for verdi
+        Node <T> node = new Node<>(verdi);
 
         //Tilfelle 1: Hvis listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
             //oppdaterer verdiene
             hode = node;
-            hale = hode;
             hale = node;
         }
 
         //Tilfelle 2: Hvis listen ikke er tom og index = 0
-        else if (indeks == 0) { //Hvis index = 0 skal verien bli lagt til før hode.
+        else if (indeks == 0){ //Hvis index = 0 skal verien bli lagt til før hode.
+            //Oppdaterer verdiene
             node.neste = hode;
             hode.forrige = node;
             hode = node;
         }
 
-        else { //Tilfelle 3: Hvis listen ikke er tom og index = antall
-                //Oppretter en hjelpeNode
-                Node<T> newNode = hode;
-                for (int i = indeks; indeks < antall && indeks > 0; i++){
-                    newNode = newNode.neste;
-                }
-                node.neste = newNode.neste;
-                newNode.neste = node;
-                node.forrige = newNode;
-                node.neste.forrige = node;
+        //Tilfelle 3: Hvis listen ikke er tom og index = antall
+        else if (indeks == antall){ //Dersom index = antall skal verdien bli lagt til som hale
+            //Oppdaterer verdiene
+            node.forrige = hale;
+            hale.neste = node;
+            hale = node;
+        }
+
+        //Tilfelle 4: Hvis listen ikke er tom og 0 < index < antall
+        else {
+            //Oppretter en hjelpeNode
+            Node<T> newNode = hode;
+            for (int i = 1; i < indeks; i++){
+                newNode = newNode.neste;
+                //newNode peker nå på noden før der den nye skal bli lagt inn.
             }
-            //oppdaterer verdiene
-
-
-            antall++;
-            endringer++;
+            //Oppdaterer verdiene
+            node.neste = newNode.neste;
+            newNode.neste = node;
+            node.forrige = newNode;
+            node.neste.forrige = node;
+        }
+        //Oppdaterer antall og antall endringer
+        antall++;
+        endringer++;
 
         }
 
