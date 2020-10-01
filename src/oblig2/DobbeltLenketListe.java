@@ -37,13 +37,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-       hode = hale = null;
-       antall = 0;
-       endringer = 0;
+        hode = hale = null;
+        antall = 0;
+        endringer = 0;
     }
 
 
-
+    /*---------------------------------    Oppgave 1    ----------------------------------------------------------*/
     public DobbeltLenketListe(T[] a) {
         //Kaster et NullPointerException hvis tabellen er tom
         //Eller hvos tabellen bare inneholder "null-verdier".
@@ -53,7 +53,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         for (T value : a) { //looper gjennom tabellen med T verdien
             if (value == null) { //Sjekker om nåverende verdi er null
-              countNullValues++; //Oppdaterer antall verdier som er null
+                countNullValues++; //Oppdaterer antall verdier som er null
 
             } else if (tom()){ //Hvis verdien ikke er null, oppdateres første verdi.
                 Node<T>  node = new Node<>(value, hode, null);
@@ -74,9 +74,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
 
-    public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
-    }
+
 
     /**
      * Sjekker om listen er tom. Hvis ikke settes første node til hode. Går gjennom listen og oppdaterer
@@ -95,8 +93,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             antall++; //oppdaterer antall
         }
         return antall;
-        }
-
+    }
 
 
     /**
@@ -111,113 +108,91 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         else return false;
     }
 
+    /*---------------------------------  Slutt på Oppgave 1    ----------------------------------------------------------*/
+
+
+    /*---------------------------------    Oppgave 2    ----------------------------------------------------------*/
     /**
-     *
-     * @param verdi
-     * @return
+     * Sjekker først om listen er tom, og returnerer kun [] hvis den er det.
+     * Deretter lages en streng, som starter på hode,og hvis node sin verdi ikke er null,
+     * så legges verdien i strengen.
+     * @return en tegnstreng med listens verdier
      */
+    @Override
+    public String toString() {
+
+        //Hvis listen er tom, returner []
+        if (tom()) return "[]";
+
+        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+
+        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
+        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
+        for (Node<T> node = hode; node != null; node = node.neste) {
+            stringJoiner.add(node.verdi.toString());
+        }
+
+
+        //Returnerer stringJoiner/listen med oppdaterte verdier.
+        return stringJoiner.toString();
+    }
+
+    /**
+     * Sjekker først om listen er tom, og retunerer [] hvis den er det.
+     * Lager strengen med Stringbuilder. Denne gangen starter vi på hale, og legger forrige node
+     * sin verdi inn i strengen, da får vi den omvendte rekkefølgen.
+     * @return samme tegnstreng som i toString, men i omvendt rekkefølge
+     */
+    public String omvendtString() {
+        if (tom()) return "[]";
+        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+
+        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
+        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
+        for (Node<T> node = hale; node != null; node = node.forrige) {
+            stringJoiner.add(node.verdi.toString());
+        }
+
+        //returnerer stringjoiner/listen med oppdaterte verdier
+        return stringJoiner.toString();
+    }
+
+
+
     @Override
     public boolean leggInn(T verdi) {
         //bruker requireNonNull for å kaste avvik.
-         Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
+        Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
 
-          //Definerer en ny node
-          Node <T> node = new Node<>(verdi);
+        //Definerer en ny node
+        Node <T> node = new Node<>(verdi);
 
 
-           //Tilfelle 1: Hvis listen på forhånd er tom
+        //Tilfelle 1: Hvis listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
             //oppdaterer verdiene
             hode = node;
             hale = hode;
         }
 
-            //Tilfelle 2: Hvis listen ikke er tom
-            else {
-            //oppdaterer verdiene
-            node.forrige = hale;
-            hale.neste = node;
-            hale = node;
-        }
-            antall++;
-            endringer++;
-            return true;
-        }
-
-    //Oppgave 5:
-    //Skal legge til den verdi på index fra og med 0 til og med liste.length
-    //Negative indexer og indexer som er større enn liste.length er ulovlige.
-    //Husk på de 4 tilfellene
-        // 1) Er listen tom?
-        // 2) Skal verdien legges først
-        // 3) Skal verdien legges bakerst
-        // 4) Skal verdien legges mellom to andre verdier
-    //Første peker skal peke på null, og siste peker skal peke på null
-    // Øk antall()
-    //Øk  endringer()
-    @Override
-    public void leggInn(int indeks, T verdi) {
-        //bruker requireNonNull for å kaste avvik.
-        Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
-
-
-        //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
-        if(indeks < 0 || indeks > antall){
-            throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
-        }
-
-
-
-        //Definerer en ny node for verdi
-        Node <T> node = new Node<>(verdi);
-
-        //Tilfelle 1: Hvis listen på forhånd er tom
-        if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
-            //oppdaterer verdiene
-            hode = node;
-            hale = node;
-        }
-
-        //Tilfelle 2: Hvis listen ikke er tom og index = 0
-        else if (indeks == 0){ //Hvis index = 0 skal verien bli lagt til før hode.
-            node.neste = hode;
-            hode.forrige = node;
-            hode = node;
-        }
-
-        //Tilfelle 3: Hvis listen ikke er tom og index = antall
-        else if (indeks == antall){ //Dersom index = antall skal verdien bli lagt til som hale
-            node.forrige = hale;
-            hale.neste = node;
-            hale = node;
-        }
-
-        //Tilfelle 4: Hvis listen ikke er tom og 0 < index < antall
+        //Tilfelle 2: Hvis listen ikke er tom
         else {
-            //Oppretter en hjelpeNode
-            Node<T> newNode = hode;
-            for (int i = 1; i < indeks; i++){
-                newNode = newNode.neste;
-                //newNode peker nå på noden før der den nye skal bli lagt inn.
-            }
-            node.neste = newNode.neste;
-            newNode.neste = node;
-            node.forrige = newNode;
-            node.neste.forrige = node;
+            //oppdaterer verdiene
+            node.forrige = hale;
+            hale.neste = node;
+            hale = node;
         }
-
-
-
-
         antall++;
         endringer++;
-
+        return true;
     }
 
-    @Override
-    public boolean inneholder(T verdi) {
-        return indeksTil(verdi) != -1;
-    }
+    /*--------------------------------- Slutt på Oppgave 2    ----------------------------------------------------------*/
+
+
+    /*---------------------------------  Oppgave 3    ----------------------------------------------------------*/
 
     /**
      * Sjekker om indeksen er mindre enn antall/2. Hvis den gjør det startes letingen fra hode
@@ -229,18 +204,29 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     private Node<T> finnNode(int indeks) {
 
-        Node<T> h = hode;
-        Node<T> t = hale;
-        if(indeks < antall/2) {
-            for (int i = 0; i < indeks; i++) h = h.neste;
-            return h;
+        //Definerer noden
+        Node<T> node;
+
+        //Hvis indeksen er mindre eller lik midten av listen, så er node  = hode (starten av listen)
+        if(indeks <= antall/2) {
+            node = hode;
+            //Looper gjennom listen og gir noden nye verdier for å finne verdi fra gitt indeks
+            for (int i = 0; i < indeks; i++) {
+                node = node.neste;
+            }
         }
+        //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
-            for (int i = 0; i < indeks; i++) t = t.forrige;
-            return t;
+            node = hale;
+            //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
+            //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
+            for (int j = antall-1; j > indeks; j--){ node = node.forrige;}
         }
-        // returnere noe her
+
+        //Returnerer noden på gitt indeks
+       return node;
     }
+
 
     /**
      * Henter nodens indeks og verdien dens
@@ -250,18 +236,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
      */
     @Override
     public T hent(int indeks) {
-        if (indeks == -1) {
-            indeksKontroll(indeks, false);
-        }
+     indeksKontroll(indeks, false);
         return finnNode(indeks).verdi;
     }
 
+    /**
+     * Passer på at man ikke kan legge inn null-verdier.
+     * Metoden skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
+     * Sjekker indeks og variabelen endringer økes.
+     * @param indeks
+     * @param nyverdi
+     * @return
+     */
+    @Override
+    public T oppdater(int indeks, T nyverdi) {
+        //Sjekker om indeksen er en lovlig verdi
+        indeksKontroll(indeks, false);
+        //Sjekker om nyverrdi er en lovlig verdi og kaster en feilmelding hvis ikke
+        Objects.requireNonNull(nyverdi, "Feilmelding");
 
+        //Definerer noden ved hjelp av finnNode metoden
+        Node<T> node = finnNode(indeks);
+        //Definerer den nåverende verdien (gammel verdi)
+        T verdi = node.verdi;
+
+        //Oppdaterer verdien
+        node.verdi = nyverdi;
+
+        //Endringer økes
+       endringer++;
+
+        //Returnerer gammel verdi
+        return verdi;
+    }
+
+
+
+    public Liste<T> subliste(int fra, int til){
+        throw new UnsupportedOperationException();
+    }
+
+    /*---------------------------------  Slutt på Oppgave 3    ----------------------------------------------------------*/
+
+
+
+    /*--------------------------------- Oppgave 4    ----------------------------------------------------------*/
     //Oppg 4. Returnere indeksen/posisjonen til verdi hvis den finnes i listen, og returnere -1 hvis ikke.
     @Override
     public int indeksTil(T value) {
 
-       // Node <T> node = hode; //definerer noden som hode (starten) av listen
+        // Node <T> node = hode; //definerer noden som hode (starten) av listen
         int index = 0; //definerer en index. (hjelpevariabel) som skal returneres
 
         //oppretter ny node som med startverdi hode.
@@ -280,22 +304,73 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return -1; //returnerer -1 hvis verdien ikke er funner  if(!node.verdi.equals(value))
     }
 
-    /**
-     * Passer på at man ikke kan legge inn null-verdier.
-     * Metoden skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
-     * Sjekker indeks og variabelen endringer økes.
-     * @param indeks
-     * @param nyverdi
-     * @return
-     */
-    @Override
-    public T oppdater(int indeks, T nyverdi) {
 
-            throw new UnsupportedOperationException();
+    @Override
+    public boolean inneholder(T verdi) {
+        return indeksTil(verdi) != -1;
     }
 
 
-    //oppg 6
+    /*---------------------------------  Slutt på Oppgave 4    ----------------------------------------------------------*/
+
+    /*--------------------------------- Oppgave 5    ----------------------------------------------------------*/
+
+    @Override
+    public void leggInn(int indeks, T verdi) {
+//bruker requireNonNull for å kaste avvik.
+        Objects.requireNonNull(verdi, "Null-verdier er ikke tillatt!");
+        Objects.requireNonNull(indeks, "Index må ha en verdi");
+
+        //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
+        if (indeks < 0 || indeks > antall) {
+            throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
+        }
+
+        //Definerer en ny node
+        Node<T> node = new Node<>(verdi);
+
+        //Tilfelle 1: Hvis listen på forhånd er tom
+        if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
+            //oppdaterer verdiene
+            hode = node;
+            hale = hode;
+            hale = node;
+        }
+
+        //Tilfelle 2: Hvis listen ikke er tom og index = 0
+        else if (indeks == 0) { //Hvis index = 0 skal verien bli lagt til før hode.
+            node.neste = hode;
+            hode.forrige = node;
+            hode = node;
+        }
+
+        else { //Tilfelle 3: Hvis listen ikke er tom og index = antall
+                //Oppretter en hjelpeNode
+                Node<T> newNode = hode;
+                for (int i = indeks; indeks < antall && indeks > 0; i++){
+                    newNode = newNode.neste;
+                }
+                node.neste = newNode.neste;
+                newNode.neste = node;
+                node.forrige = newNode;
+                node.neste.forrige = node;
+            }
+            //oppdaterer verdiene
+
+
+            antall++;
+            endringer++;
+
+        }
+
+
+    /*---------------------------------  Slutt på Oppgave 5    ----------------------------------------------------------*/
+
+
+
+    /*---------------------------------  Oppgave 6    ----------------------------------------------------------*/
+
+
     //Skal fjerne verdi fra listen, og returnere true
     //Hvis det er flere av samme verdi skal den første gitte verdien (fra hode) fjernes
     //Hvis verdien ikke er i listen, returner false.
@@ -359,17 +434,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
 
-    //oppg 6
+
     //Skal fjerne og returnere verdien på gitt ideks
     @Override
     public T fjern(int indeks) {
-    indeksKontroll(indeks, false);
-    if (tom()) return null;
-    Node<T> node;
+
+     indeksKontroll(indeks, false);
+
+        Node<T> node = hode;
+
+        //Hvis listen bare inneholder 1 verdi
+        if (antall == 1){
+            hode = hale = null;
+        }
 
         //Tilfelle 1: Den første fjernes
-        if (indeks == 0) { //Hvis indeksen er 0 (første tallet i listen, dvs hode)
-            node = hode; //gir noden verdien til hode (indeks 0)
+        else if (indeks == 0) { //Hvis indeksen er 0 (første tallet i listen, dvs hode)
             hode = hode.neste; //oppdaterer hode til at den får verdien til den neste verdien i listen
             hode.forrige = null; //Fjerner verdien til indeks 0 (gir den verdien null)
         }
@@ -386,92 +466,60 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             node = node.neste; //oppdaterer verdien til noden
             node = node.forrige;
         }
-        //Antall skal reduseres --
-        //endringer skal økes ++
-        antall--;
-        endringer++;
-        return node.verdi; //Returnerer verdien til noden på gitt indeks
-        }
 
 
+        T nodeVverdi = node.verdi; //Verdien som skal returneres
+        node.verdi = null;
+        node.forrige = node.neste = null;
+
+
+        antall--;   //Antall skal reduseres --
+        endringer++;  //endringer skal økes ++
+        return nodeVverdi; //Returnerer verdien til noden på gitt indeks
+    }
+
+
+
+    /*---------------------------------  Slutt på Oppgave 6    ----------------------------------------------------------*/
+
+
+
+    /*---------------------------------   Oppgave 7 ferdig   ----------------------------------------------------------*/
 
 
     @Override
     public void nullstill() {
-        throw new UnsupportedOperationException();
+
+        //metode 1 tar 7ms for å teste.
+        //Starter i hode og går mot hale ved hjelpepekeren neste
+        Node <T> nodeHode = hode;
+
+        //Så lenge nodeHode != null, slett alle nodene
+        while ( nodeHode != null){
+            nodeHode.neste = null;
+            nodeHode.forrige = null;
+            nodeHode = null;
+        }
+
+      /* while (nodeHode!= null){
+            fjern(0);
+        }*/
+
+        //til slutt settes både hode og hale til null, antall til 0 og endringer økes (fra oppgtekst)
+        hode = hale = null; //ingen verdier igjen i listen
+        antall = 0;
+        endringer++; //Det er gjort endringer
+
+        //Metode 2 gir feil i test. Velger derfor metode 1.
+
+
     }
 
 
-    /**
-     * Sjekker først om listen er tom, og returnerer kun [] hvis den er det.
-     * Deretter lages en streng, som starter på hode,og hvis node sin verdi ikke er null,
-     * så legges verdien i strengen.
-     * @return en tegnstreng med listens verdier
-     */
-    @Override
-    public String toString() {
-
-        //Hvis listen er tom, returner []
-        if (tom()) return "[]";
-
-        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
-        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-
-        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
-        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
-        for (Node<T> node = hode; node != null; node = node.neste) {
-            stringJoiner.add(node.verdi.toString());
-        }
+    /*---------------------------------  Slutt på Oppgave 7    ----------------------------------------------------------*/
 
 
-        //Returnerer stringJoiner/listen med oppdaterte verdier.
-        return stringJoiner.toString();
-    }
-
-    /**
-     * Sjekker først om listen er tom, og retunerer [] hvis den er det.
-     * Lager strengen med Stringbuilder. Denne gangen starter vi på hale, og legger forrige node
-     * sin verdi inn i strengen, da får vi den omvendte rekkefølgen.
-     * @return samme tegnstreng som i toString, men i omvendt rekkefølge
-     */
-    public String omvendtString() {
-        /*if (tom()) { return "[]";} //Skal returnere [] hvis listen ikke inneholder noen verdier
-
-        // Setter opp en kolonne der verdiene senere skal settes inn.
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
-
-
-        Node <T> node = hale; //Definerer noden til hale (slutten av listen)
-        stringBuilder.append(node.verdi);
-        node = node.forrige;
-
-        while (node != null){ //Hvis verdien (noden) ikke er null, så...
-            stringBuilder.append(", ").append(node); //leggert til verdien i tegnestrengen med "," og mellomrom
-            node = node.forrige; //Hopper videre til neste verdi
-        }
-
-        stringBuilder.append("]");
-        return stringBuilder.toString(); //Returnerer tegnestringen med innhold.*/
-
-        //Hvis listen er tom, returner []
-        if (tom()) return "[]";
-
-
-        //Oppretter en stringjoiner der verdiene skal legges inn i [] med "," og mellomrom
-       StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-
-
-        //Oppretter en ny node og setter verdien til hode (starten av listen), loopen fortsetter til noden sin verdi er null
-        //Hvis noden ikke er null, legges node.verdi inn i stringjoiner og noden går videre (node = node.neste)
-        for (Node<T> node = hale; node != null; node = node.forrige) {
-            stringJoiner.add(node.verdi.toString());
-        }
-
-        //returnerer stringjoiner/listen med oppdaterte verdier
-    return stringJoiner.toString();
-    }
-
+    /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
@@ -487,36 +535,53 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         private boolean fjernOK;
         private int iteratorendringer;
 
+        //Er ferdigkodet og skal IKKE endres
         private DobbeltLenketListeIterator(){
             denne = hode;     // p starter på den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
 
+        //Denne skal kodes. 1)Sette pekeren "denne" til noden som hører til den oppgitte indeksen. Resten skal være som i den
+        //Ferdigkodete konstruktøren over.
         private DobbeltLenketListeIterator(int indeks){
             throw new UnsupportedOperationException();
         }
 
+
+        //Er ferdigkodet og skal IKKE endres
         @Override
         public boolean hasNext(){
             return denne != null;
         }
+
 
         @Override
         public T next(){
             throw new UnsupportedOperationException();
         }
 
+
+        /*---------------------------------  Slutt på Oppgave 8    ----------------------------------------------------------*/
+
+
+        /*---------------------------------  Oppgave 9    ----------------------------------------------------------*/
+
         @Override
         public void remove(){
             throw new UnsupportedOperationException();
         }
 
+        /*---------------------------------  Slutt på Oppgave 9    ----------------------------------------------------------*/
+
     } // class DobbeltLenketListeIterator
 
+
+    /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         throw new UnsupportedOperationException();
     }
+    /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
+
 
 } // class DobbeltLenketListe
-
