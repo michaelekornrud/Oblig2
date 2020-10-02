@@ -575,7 +575,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
         /*---------------------------------  Oppgave 9    ----------------------------------------------------------*/
-
+        //
         @Override
         public void remove(){
             throw new UnsupportedOperationException();
