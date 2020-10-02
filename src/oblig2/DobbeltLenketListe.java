@@ -587,8 +587,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
+    @FunctionalInterface
+    public interface  Komparator<T>{
+        int compare (T a, T b);
+    }
+    //Denne funksjonen finner største verdi i liste, og returnerer indexen.
+    public static <T> int maks (T [] liste, int begin, int end, Komparator<T> comp){
+        T current_max = liste[begin];
+        int current_index = begin;
+
+        for (int i = begin + 1; i < end; ++i){
+            if (comp.compare(liste[i], current_max) > 0){
+                current_max = liste[i];
+                current_index = i;
+            }
+        }
+        return current_index;
+    }
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
     }
     /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
 
