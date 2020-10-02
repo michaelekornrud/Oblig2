@@ -1,8 +1,9 @@
 package oblig2;
 
+import java.util.Collection;
 import java.util.Iterator;
 
-public interface Liste<T> extends Beholder<T> {
+public interface Liste<T> extends Beholder<T>, Collection<T> {
     public boolean leggInn(T verdi);           // Nytt element bakerst
 
     public void leggInn(int indeks, T verdi);  // Nytt element på plass indeks

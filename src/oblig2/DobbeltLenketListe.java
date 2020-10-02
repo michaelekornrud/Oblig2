@@ -2,14 +2,10 @@ package oblig2;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-import java.util.Comparator;
-
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.StringJoiner;
+import java.util.*;
 
 
-public class DobbeltLenketListe<T> implements Liste<T> {
+public class DobbeltLenketListe<T> implements Liste<T>{
 
     /**
      * Node class
@@ -68,12 +64,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         //System.out.println("Antall null-verdier: "+countNullValues);
         //System.out.println("Antall definerte verdier: "+antall);
     }
-
-
-
-
-
-
 
 
     /**
@@ -313,7 +303,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     /*---------------------------------  Slutt på Oppgave 4    ----------------------------------------------------------*/
 
-    /*--------------------------------- Oppgave 5    ----------------------------------------------------------*/
+    /*--------------------------------- Oppgave 5 FERDIG   ----------------------------------------------------------*/
 
     @Override
     public void leggInn(int indeks, T verdi) {
@@ -528,10 +518,70 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     /*---------------------------------  Slutt på Oppgave 7    ----------------------------------------------------------*/
 
 
+    @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
+
     /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public <T1> T1[] toArray(T1[] a) {
+        return null;
+    }
+
+    @Override
+    public boolean add(T t) {
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public void clear() {
+
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -587,30 +637,56 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
 
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
-    @FunctionalInterface
-    public interface  Komparator<T>{
+   /* @FunctionalInterface
+    public interface Komparator<T>{
         int compare (T a, T b);
     }
-    //Denne funksjonen finner største verdi i liste, og returnerer indexen.
-    public static <T> int maks (T [] liste, int begin, int end, Komparator<T> comp){
-        T current_max = liste[begin];
-        int current_index = begin;
+    public static class AscendingListComparator implements Komparator<DobbeltLenketListe>{
+        public int compare (DobbeltLenketListe a, DobbeltLenketListe b){
+            int last_compare = b.hale.compareTo(a.hale);
+            int first_compare = b.hode.compareTo(a.hode);
 
-        for (int i = begin + 1; i < end; ++i){
-            if (comp.compare(liste[i], current_max) > 0){
-                current_max = liste[i];
-                current_index = i;
+            if(last_compare == 0 ){
+                return first_compare;
+            }
+            else{
+                return last_compare;
             }
         }
-        return current_index;
     }
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        //Looper over alle untenom siste element
-        for(int i = 0; i < liste.antall() - 1; ++i){
-            //Finner største element i intervallet [i, liste.antall()]
-            int max_index = maks(liste, i, liste.antall(), c);
+
+    public int compareTo(DobbeltLenketListe a){
+        int last_compare = this.hale.compareTo(a.hale);
+        int first_compare = this.hode.compareTo(a.hode);
+        if (last_compare == 0){
+            return first_compare;
+        }
+        else {
+            return last_compare;
         }
     }
+
+    public static <T> int maks(T [] liste, int begin, int end, Komparator<T> comp){
+        T curr_max = liste[begin];
+        int curr_index = begin;
+
+        for (int i = begin + 1; i < end; ++i){
+            if(comp.compare(liste[i], curr_max) > 0 ){
+                curr_max = liste[i];
+                curr_index = i;
+            }
+        }
+        return curr_index;
+    }
+    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        for (int i = 0; i < liste.antall() - 1; ++i) {
+            int max_index = maks(liste, i, liste.antall(), c);
+
+            T temp = liste[i];
+            liste[i] = liste[max_index];
+            liste[max_index] = temp;
+        }
+    }*/
     /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
 
 
