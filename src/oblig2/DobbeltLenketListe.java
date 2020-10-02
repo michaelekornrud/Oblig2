@@ -605,6 +605,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return current_index;
     }
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        //Looper over alle untenom siste element
+        for(int i = 0; i < liste.antall() - 1; ++i){
+            //Finner største element i intervallet [i, liste.antall()]
+            int max_index = maks(liste, i, liste.antall(), c);
+        }
     }
     /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
 
