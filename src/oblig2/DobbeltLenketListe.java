@@ -558,6 +558,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     }
 
     /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
+
+
+    /**
+     *
+     * @return en instans av iteratorklassen
+     */
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
@@ -608,6 +614,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     }
 
+    /**
+     * Sjekke at indeks er lovlig ved å bruke indeksKontroll(), deretter bruke konstruktøren
+     * i oppg c) til å returnere en instans av iteratorklassen
+     * @param indeks
+     * @return
+     */
     public Iterator<T> iterator(int indeks) {
         throw new UnsupportedOperationException();
     }
@@ -639,9 +651,26 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         }
 
 
+        /**
+         * Først sjekke om iteratorendringer er lik endringer, hvis ikke kastet ConcurrentModificationException,
+         * hvis det ikke er flere igjen i listen kastet NoSuchElementException
+         * Sett fjernOk til true, verdien til denne returneres og denne flyttes til neste node
+         * @return verdien til denne
+         */
         @Override
         public T next(){
-            throw new UnsupportedOperationException();
+            if(iteratorendringer == endringer) {
+                throw new ConcurrentModificationException();
+            }
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            fjernOK = true;
+
+            return denne.verdi;
+            //flytte denne til neste node
+
+
         }
 
 
