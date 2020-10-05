@@ -306,6 +306,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     /*--------------------------------- Oppgave 5 FERDIG   ----------------------------------------------------------*/
 
+    /**
+     * Skal legge verdi inn i listen, og den får indeks/posisjon "indeks"
+     * Når verdi legges inn riktig i forhold til neste/forrige-pekere, skal endringer og antall oppdateres
+     * @param indeks
+     * @param verdi
+     */
     @Override
     public void leggInn(int indeks, T verdi) {
         //bruker requireNonNull for å kaste avvik.
@@ -375,6 +381,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     //Hvis det er flere av samme verdi skal den første gitte verdien (fra hode) fjernes
     //Hvis verdien ikke er i listen, returner false.
     //Skal ikke kastes unntak hvis verdi er mull, men returnere false.
+
+    /**
+     * Skal fjerne verdi fra listen. Hvis det er flere forekomster er det den første som skal fjernes (fra venstre), return true
+     * Hvis verdi ikke finnes, skal det returneres false.
+     * @param verdi
+     * @return true/false ettersom verdi blir fjernet eller ikke
+     */
     @Override
     public boolean fjern(T verdi) {
 
