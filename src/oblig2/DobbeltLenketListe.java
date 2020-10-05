@@ -380,6 +380,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     //Hvis det er flere av samme verdi skal den første gitte verdien (fra hode) fjernes
     //Hvis verdien ikke er i listen, returner false.
     //Skal ikke kastes unntak hvis verdi er mull, men returnere false.
+
+    /**
+     * Skal fjerne verdi fra listen. Hvis det er flere forekomster er det den første som skal fjernes (fra venstre), return true
+     * Hvis verdi ikke finnes, skal det returneres false.
+     * @param verdi
+     * @return true/false ettersom verdi blir fjernet eller ikke
+     */
     @Override
     public boolean fjern(T verdi) {
 
