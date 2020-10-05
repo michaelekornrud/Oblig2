@@ -448,6 +448,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
     //Skal fjerne og returnere verdien på gitt ideks
+
+    /**
+     * Denne skal fjerne og returnere verdien på posisjonen "indeks".
+     * Her må vi også sjekke indeks først.
+     * @param indeks
+     * @return verdien på posisjonen "indeks"
+     */
     @Override
     public T fjern(int indeks) {
 
@@ -499,6 +506,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /*---------------------------------   Oppgave 7 ferdig   ----------------------------------------------------------*/
 
 
+    /**
+     * Her skal vi tømme listen og nulle alt slik at det som ikke blir brukt kan fjernes
+     */
     @Override
     public void nullstill() {
 
