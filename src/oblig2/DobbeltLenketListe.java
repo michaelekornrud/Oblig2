@@ -679,10 +679,45 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         /*---------------------------------  Oppgave 9    ----------------------------------------------------------*/
         //
+
+        /**
+         * Hvis det ikke er tillatt å kalle denne metoden, kastes en IllegalStateException,
+         * Hvis endringer og iteratorendringer er forskjellige, kastes en ConcurrentModificationException,
+         * Hvis disse hindrene passeres, settes fjernOk() til false.
+         * Noden rett til venstre for p fjernes
+         * Antall reduseres, men endringer og iteratorendringer økes.
+         */
         @Override
         public void remove(){
-            throw new UnsupportedOperationException();
+
+            // 1. tilfelle
+            if (antall == 1) {
+                hode = null;
+                hale = null;
+            }
+            else {
+                remove();
+            }
+
+            //2. tilfelle
+            if (denne == null) {
+                //Oppdater hale
+            }
+
+
+            //3. tilfelle
+            if(denne.forrige == hode) {
+                //oppdater hode
+            }
+
+
+            //4. tilfelle
+            //hvis en node inne i listen skal fjernes (noden denne.forrige) så må pekerne
+            // i nodene på hver side oppdateres
         }
+
+        //redusere antall
+        //endringer og iteratorendringer økes
 
         /*---------------------------------  Slutt på Oppgave 9    ----------------------------------------------------------*/
 
