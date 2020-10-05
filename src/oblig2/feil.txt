@@ -1,0 +1,69 @@
+ //// Forsøk 1 ////////////////
+
+  @FunctionalInterface
+    public interface Komparator<T>{
+        int compare (T a, T b);
+    }
+    public static class AscendingListComparator implements Komparator<DobbeltLenketListe>{
+        public int compare (DobbeltLenketListe a, DobbeltLenketListe b){
+            int last_compare = b.hale.compareTo(a.hale);
+            int first_compare = b.hode.compareTo(a.hode);
+
+            if(last_compare == 0 ){
+                return first_compare;
+            }
+            else{
+                return last_compare;
+            }
+        }
+    }
+
+    public int compareTo(DobbeltLenketListe a){
+        int last_compare = this.hale.compareTo(a.hale);
+        int first_compare = this.hode.compareTo(a.hode);
+        if (last_compare == 0){
+            return first_compare;
+        }
+        else {
+            return last_compare;
+        }
+    }
+
+    public static <T> int maks(T [] liste, int begin, int end, Komparator<T> comp){
+        T curr_max = liste[begin];
+        int curr_index = begin;
+
+        for (int i = begin + 1; i < end; ++i){
+            if(comp.compare(liste[i], curr_max) > 0 ){
+                curr_max = liste[i];
+                curr_index = i;
+            }
+        }
+        return curr_index;
+    }
+}
+
+
+
+///////// Forsøk 2 ////////////////
+DobbeltLenketListe<T> newList = new DobbeltLenketListe<>();
+        System.out.println("Antall i liste: " + liste.antall());
+                T tmp = null;
+                int index = 0;
+                for (int i = 0; i < liste.antall(); i++){
+        tmp = liste.hent(i);
+        index = i;
+        newList.leggInn(index, tmp);
+        }
+
+        Node<Liste> newNode = new Node<>(liste);
+        System.out.println("newList: " + newList.toString());
+        Liste<T> a = null;
+
+        for (int i = 0; i < newList.antall - 1; ++i){
+        for (int j = 1; j < newList.antall; ++j){
+        //if(newList[i] > newList[j]){
+
+        //}
+        }
+        }
