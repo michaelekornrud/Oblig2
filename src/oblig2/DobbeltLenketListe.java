@@ -2,6 +2,7 @@ package oblig2;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
+import java.text.Collator;
 import java.util.*;
 
 
@@ -660,56 +661,132 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
-   /* @FunctionalInterface
-    public interface Komparator<T>{
-        int compare (T a, T b);
-    }
-    public static class AscendingListComparator implements Komparator<DobbeltLenketListe>{
-        public int compare (DobbeltLenketListe a, DobbeltLenketListe b){
-            int last_compare = b.hale.compareTo(a.hale);
-            int first_compare = b.hode.compareTo(a.hode);
 
-            if(last_compare == 0 ){
-                return first_compare;
+    public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        List<T> newList = new List<T>() {
+            @Override
+            public int size() {
+                return 0;
             }
-            else{
-                return last_compare;
+
+            @Override
+            public boolean isEmpty() {
+                return false;
             }
-        }
-    }
 
-    public int compareTo(DobbeltLenketListe a){
-        int last_compare = this.hale.compareTo(a.hale);
-        int first_compare = this.hode.compareTo(a.hode);
-        if (last_compare == 0){
-            return first_compare;
-        }
-        else {
-            return last_compare;
-        }
-    }
-
-    public static <T> int maks(T [] liste, int begin, int end, Komparator<T> comp){
-        T curr_max = liste[begin];
-        int curr_index = begin;
-
-        for (int i = begin + 1; i < end; ++i){
-            if(comp.compare(liste[i], curr_max) > 0 ){
-                curr_max = liste[i];
-                curr_index = i;
+            @Override
+            public boolean contains(Object o) {
+                return false;
             }
-        }
-        return curr_index;
-    }
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        for (int i = 0; i < liste.antall() - 1; ++i) {
-            int max_index = maks(liste, i, liste.antall(), c);
 
-            T temp = liste[i];
-            liste[i] = liste[max_index];
-            liste[max_index] = temp;
-        }
-    }*/
+            @Override
+            public Iterator<T> iterator() {
+                return null;
+            }
+
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @Override
+            public <T1> T1[] toArray(T1[] a) {
+                return null;
+            }
+
+            @Override
+            public boolean add(T t) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends T> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(int index, Collection<? extends T> c) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+
+            @Override
+            public T get(int index) {
+                return null;
+            }
+
+            @Override
+            public T set(int index, T element) {
+                return null;
+            }
+
+            @Override
+            public void add(int index, T element) {
+
+            }
+
+            @Override
+            public T remove(int index) {
+                return null;
+            }
+
+            @Override
+            public int indexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public int lastIndexOf(Object o) {
+                return 0;
+            }
+
+            @Override
+            public ListIterator<T> listIterator() {
+                return null;
+            }
+
+            @Override
+            public ListIterator<T> listIterator(int index) {
+                return null;
+            }
+
+            @Override
+            public List<T> subList(int fromIndex, int toIndex) {
+                return null;
+            }
+        };
+
+        Collections.sort(newList, new Comparator<T>() {
+            @Override
+            public int compare(T a, T b){
+                return Collator.getInstance(Locale.ENGLISH).compare(a, b);
+            }
+        });
+    }
     /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
 
 
