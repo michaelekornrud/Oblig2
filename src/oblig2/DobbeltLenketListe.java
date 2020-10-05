@@ -305,6 +305,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     /*--------------------------------- Oppgave 5 FERDIG   ----------------------------------------------------------*/
 
+    /**
+     * Skal legge verdi inn i listen, og den får indeks/posisjon "indeks"
+     * Når verdi legges inn riktig i forhold til neste/forrige-pekere, skal endringer og antall oppdateres
+     * @param indeks
+     * @param verdi
+     */
     @Override
     public void leggInn(int indeks, T verdi) {
         //bruker requireNonNull for å kaste avvik.
