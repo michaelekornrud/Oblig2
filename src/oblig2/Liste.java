@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-public interface Liste<T> extends Beholder<T>, Collection<T> {
+public interface Liste<T> extends Beholder<T>, Collection<T>, List<T> {
     public boolean leggInn(T verdi);           // Nytt element bakerst
 
     public void leggInn(int indeks, T verdi);  // Nytt element på plass indeks

@@ -1271,6 +1271,7 @@ class DobbeltLenketListeTest {
 
         liste = new DobbeltLenketListe<>(new String[]{"C", "B", "A"});
         DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+        System.out.println("10 d: " + liste.toString());
 
         if (!liste.toString().equals("[A, B, C]")) {
             System.out.println("Oppgave 10d: Feil for listen C, B, A!");
@@ -1280,6 +1281,7 @@ class DobbeltLenketListeTest {
 
         liste = new DobbeltLenketListe<>(new String[]{"G", "B", "F", "C", "E", "D", "A"});
         DobbeltLenketListe.sorter(liste, Comparator.naturalOrder());
+        System.out.println("10 e: " + liste.toString());
 
         if (!liste.toString().equals("[A, B, C, D, E, F, G]")) {
             System.out.println("Oppgave 10e: Feil for listen G, B, F, C, E, D, A!");
@@ -1290,6 +1292,7 @@ class DobbeltLenketListeTest {
         Integer[] a = {8, 5, 2, 11, 7, 3, 15, 14, 10, 17, 18, 9, 4, 12, 13, 19, 20, 1, 16, 6};
         DobbeltLenketListe<Integer> intliste = new DobbeltLenketListe<>(a);
         DobbeltLenketListe.sorter(intliste, Comparator.naturalOrder());
+        System.out.println("10 f: " + liste.toString());
 
         if (!intliste.toString().equals(
                 "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]")) {

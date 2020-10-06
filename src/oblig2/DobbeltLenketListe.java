@@ -639,6 +639,11 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     }
 
     @Override
+    public boolean addAll(int index, Collection<? extends T> c) {
+        return false;
+    }
+
+    @Override
     public boolean removeAll(Collection<?> c) {
         return false;
     }
@@ -651,6 +656,51 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     @Override
     public void clear() {
 
+    }
+
+    @Override
+    public T get(int index) {
+        return null;
+    }
+
+    @Override
+    public T set(int index, T element) {
+        return null;
+    }
+
+    @Override
+    public void add(int index, T element) {
+
+    }
+
+    @Override
+    public T remove(int index) {
+        return null;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(Object o) {
+        return 0;
+    }
+
+    @Override
+    public ListIterator<T> listIterator() {
+        return null;
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        return null;
     }
 
 
@@ -691,7 +741,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         //Denne skal kodes. 1)Sette pekeren "denne" til noden som hører til den oppgitte indeksen. Resten skal være som i den
         //Ferdigkodete konstruktøren over.
         private DobbeltLenketListeIterator(int indeks){
-            Node <T> newNode = new Node(indeks);
+            Node <T> newNode = finnNode(indeks);
             if (indeks > antall || indeks < 0){
                 throw new IndexOutOfBoundsException("Index utenfor rekkevidde!");
             }
@@ -700,9 +750,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
                 fjernOK = false;//Samme som over
                 iteratorendringer = endringer;
             }
-            /*else{
-                throw new IndexOutOfBoundsException("Index utenfor rekkevidde");
-            }*/
         }
 
 
@@ -724,16 +771,18 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             if(iteratorendringer != endringer) {
                 throw new ConcurrentModificationException();
             }
+            T denneVerdi ;
             if (!hasNext()) {
                 throw new NoSuchElementException();
+
+
             }
-            fjernOK = true;
-            T denneVerdi = denne.verdi; //lagrer verdien i denne
-            denne = denne.neste;    //flytter denne til den neste noden
-
-            return denneVerdi;  //og returnerer verdien
-
-
+            else {
+                fjernOK = true;             //lagrer verdien i denne
+                denneVerdi = denne.verdi;   //flytter denne til den neste noden
+                denne = denne.neste;        //og returnerer verdien
+                return denneVerdi;
+            }
 
         }
 
