@@ -868,38 +868,20 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         int curr_index = 0;
         int next_index = 0;
         T curr_value = liste.hent(0);
-        T tmp = curr_value;
-        Node<T> current;
-        Node<T> next;
+        T tmp;
         for (int i = 0; i < liste.antall() -1; ++i){
-            for (int j = 1; j < liste.antall(); ++j) {
+            for (int j =  i+ 1; j < liste.antall(); ++j) {
                 curr_index = i;
                 next_index = j;
-                System.out.println("Liste.antall() : " + liste.antall());
-                System.out.println("i: " + curr_index + " j: " + next_index);
                 if (liste.hent(i) != null && liste.hent(i + 1) != null) {
                     curr_value = liste.hent(curr_index);
                     tmp = liste.hent(next_index);
 
-                    //Tilfelle 1: Hvis verdiene er like --> Trenger ikke å sortere
-                    if (c.compare(curr_value, tmp) == 0) {
-                        return;
-                    }
                     //Tilfelle 2: Hvis a er større enn b
-                    else if (c.compare(curr_value, tmp) > 0) {
+                    if (c.compare(curr_value, tmp) > 0) {
                         liste.oppdater(curr_index, tmp);
                         liste.oppdater(next_index, curr_value);
                     }
-
-                    //Tilfelle 3: Hvis b er større enn a --> Trenger ikke å sortere
-                    else if (c.compare(curr_value, tmp) < 0) {
-                        return;
-
-                    } else {
-                        System.out.println("Du gjøre feil i den oppgave");
-                    }
-                    System.out.println("Liste: " + liste);
-
                 }
             }
         }
