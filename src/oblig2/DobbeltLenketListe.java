@@ -319,7 +319,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
         //Sjekker om indexen er mindre enn 0 eller større enn antallet verdier i listen.
-        if(indeks <= 0 || indeks >= antall){
+        if(indeks < 0 || indeks > antall){
             throw new IndexOutOfBoundsException("indexen er utenfor rekkevidde");
         }
 
@@ -333,12 +333,20 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             hale = node;
         }
 
-        //Tilfelle 2: Hvis listen ikke er tom og index = 0
+        //Tilfelle 2: Hvis listen ikke er tom og index = antall
         else if (indeks == antall){ //Dersom index = antall skal verdien bli lagt til som hale
             //Oppdaterer verdiene
             node.forrige = hale;
             hale.neste = node;
             hale = node;
+        }
+         //Tilfelle 3: Hvis listen ikke er tom og indeks = 0
+        //Dersom indeks = 0, skal verdien legges inn først i listen.
+        else if (indeks == 0){
+            //Oppdaterer verdiene
+            node.neste = hode;
+            hode.forrige = node;
+            hode = node;
         }
 
         //Tilfelle 4: Hvis listen ikke er tom og 0 < index < antall
