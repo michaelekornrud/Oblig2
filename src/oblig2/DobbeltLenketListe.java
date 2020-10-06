@@ -40,15 +40,17 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     }
 
     /*------------------------------ Hjelpemetoder --------------------------------------------------------*/
+    //Hjelpemetode hentet fra kompendie
+
     public static void fratilKontroll(int tablengde, int fra, int til)
     {
         if (fra < 0)                                  // fra er negativ
-            throw new ArrayIndexOutOfBoundsException
+            throw new IndexOutOfBoundsException
                     ("fra(" + fra + ") er negativ!");
 
         if (til > tablengde)                          // til er utenfor tabellen
-            throw new ArrayIndexOutOfBoundsException
-                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + tablengde + ")");
 
         if (fra > til)                                // fra er større enn til
             throw new IllegalArgumentException
@@ -290,19 +292,28 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         //Sjekker om indeksene fra og til er lovlige
      fratilKontroll(antall, fra, til);
 
+    //oppretter listen
      Liste<T> liste = new DobbeltLenketListe<>();
+
+     //Definerer lengden
      int lengde = til-fra;
 
+     //Hvis lengden er mindre enn 1, skal listen returneres direkte
      if (lengde < 1){
          return liste;
      }
+     //Oppretter en ny node som gir den verdier finnNode(fra) (finner noden med indeksen fra)
         Node <T> node = finnNode(fra);
 
+     //Mens lengden er større enn 0 legges verdier fra tabellen inn i listen.
      while (lengde > 0){
          liste.leggInn(node.verdi);
          node = node.neste;
+         //Lengden til tabellen blir mindre
          lengde--;
      }
+
+     //Returnerer den nye listen med verider fra til.
      return liste;
     }
 
