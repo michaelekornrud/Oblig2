@@ -558,7 +558,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      */
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
+        return new DobbeltLenketListeIterator();
     }
 
     @Override
@@ -651,16 +651,18 @@ public class DobbeltLenketListe<T> implements Liste<T>{
          */
         @Override
         public T next(){
-            if(iteratorendringer == endringer) {
+            if(iteratorendringer != endringer) {
                 throw new ConcurrentModificationException();
             }
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
             fjernOK = true;
+            T denneVerdi = denne.verdi; //lagrer verdien i denne
+            denne = denne.neste;    //flytter denne til den neste noden
 
-            return denne.verdi;
-            //flytte denne til neste node
+            return denneVerdi;  //og returnerer verdien
+
 
 
         }
@@ -680,36 +682,34 @@ public class DobbeltLenketListe<T> implements Liste<T>{
          * Antall reduseres, men endringer og iteratorendringer økes.
          */
         @Override
-        public void remove(){
+        public void remove() {
 
-            // 1. tilfelle
-            if (antall == 1) {
-                hode = null;
-                hale = null;
+            if (!fjernOK) throw new IllegalStateException("Ulovlig tilstand");
+            fjernOK = false; //da kan ikke remove() kalles på nytt
+
+            Node<T> h = hode; //hjelpevariabel
+
+            if (hode.neste == denne) { //sjekker om det er den første som skal fjernes
+                hode = hode.neste;  //fjerner den første
+                if (denne == null) hale = null; //det var den eneste noden
+            } else {
+                Node<T> b = hode;    //vi må finne forgjengeren til forgjengeren til denne
+                while (b.neste.neste != denne) {
+                    b = b.neste;  //flytter b
+                }
+                h = b.neste; //nå er det denne som skal fjernes
+                b.neste = denne; //hopper over h
+                if (denne == null) hale = b;
             }
-            else {
-                remove();
-            }
+            h.verdi = null; //nuller verdien i noden
+            h.neste = null; //nuller også neste
 
-            //2. tilfelle
-            if (denne == null) {
-                //Oppdater hale
-            }
-
-
-            //3. tilfelle
-            if(denne.forrige == hode) {
-                //oppdater hode
-            }
-
-
-            //4. tilfelle
-            //hvis en node inne i listen skal fjernes (noden denne.forrige) så må pekerne
-            // i nodene på hver side oppdateres
+            antall--;
         }
 
-        //redusere antall
-        //endringer og iteratorendringer økes
+
+
+
 
         /*---------------------------------  Slutt på Oppgave 9    ----------------------------------------------------------*/
 
