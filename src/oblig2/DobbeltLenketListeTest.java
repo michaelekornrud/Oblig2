@@ -1274,6 +1274,7 @@ class DobbeltLenketListeTest {
 
         if (!liste.toString().equals("[A, B, C]")) {
             System.out.println("Oppgave 10d: Feil for listen C, B, A!");
+            System.out.println("Fra 10d : " + liste.toString());
             antallFeil++;
         }
 
@@ -1282,6 +1283,7 @@ class DobbeltLenketListeTest {
 
         if (!liste.toString().equals("[A, B, C, D, E, F, G]")) {
             System.out.println("Oppgave 10e: Feil for listen G, B, F, C, E, D, A!");
+            System.out.println("Fra 10e : " + liste.toString());
             antallFeil++;
         }
 
@@ -1292,6 +1294,7 @@ class DobbeltLenketListeTest {
         if (!intliste.toString().equals(
                 "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]")) {
             System.out.println("Oppgave 10f: Metoden sorterer feil!");
+            System.out.println("Fra 10e : " + intliste.toString());
             antallFeil++;
         }
     }

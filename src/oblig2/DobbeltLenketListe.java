@@ -90,6 +90,16 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      */
     @Override
     public int antall() {
+        if (tom()){
+            return 0;
+        }
+        antall = 0;
+        Node current = hode;
+
+        while (current != null){
+            current = current.neste; //oppdaterer det nåverende tallet.
+            antall++; //oppdaterer antall
+        }
         return antall;
     }
 
@@ -729,22 +739,29 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
             fjernOK = false; //da kan ikke remove() kalles på nytt
 
-            Node<T> h = hode; //hjelpevariabel
 
-            if (hode.neste == denne) { //sjekker om det er den første som skal fjernes
-                hode = hode.neste;  //fjerner den første
-                if (denne == null) hale = null; //det var den eneste noden
-            } else {
-                Node<T> b = hode;    //vi må finne forgjengeren til forgjengeren til denne
-                while (b.neste.neste != denne) {
-                    b = b.neste;  //flytter b
-                }
-                h = b.neste; //nå er det denne som skal fjernes
-                b.neste = denne; //hopper over h
-                if (denne == null) hale = b;
+
+            Node<T> neste = denne;
+            Node<T> forrige = denne.forrige.forrige;
+            //Første tilfellet, hvis den som fjernes er enete verdi:
+            if (antall == 1) {
+                hode = null;
+                hale = null;
             }
-            h.verdi = null; //nuller verdien i noden
-            h.neste = null; //nuller også neste
+            //Andre tilfellet, hvis den siste fjernes:
+                else if(denne.neste == null) {
+                hale = denne.forrige;
+                forrige.neste = null;
+                }
+            //Tredje tilfellet:, hvis den første fjernes:
+                else if(denne.forrige == null) {
+                hode = denne.neste;
+                neste.forrige = null;
+                }
+            //Fjerde tilfellet, hvis en node inne i listen fjernes:
+                else  {
+                    denne.forrige.neste = denne.neste;
+            }
 
             antall--; // oppdaterer antallet noder
             endringer++; // oppdaterer antall endringer
@@ -765,130 +782,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        /*List<T> newList = new List<T>() {
-            @Override
-            public int size() {
-                return 0;
-            }
-
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<T> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T1> T1[] toArray(T1[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(T t) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends T> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(int index, Collection<? extends T> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-
-            @Override
-            public T get(int index) {
-                return null;
-            }
-
-            @Override
-            public T set(int index, T element) {
-                return null;
-            }
-
-            @Override
-            public void add(int index, T element) {
-
-            }
-
-            @Override
-            public T remove(int index) {
-                return null;
-            }
-
-            @Override
-            public int indexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public int lastIndexOf(Object o) {
-                return 0;
-            }
-
-            @Override
-            public ListIterator<T> listIterator() {
-                return null;
-            }
-
-            @Override
-            public ListIterator<T> listIterator(int index) {
-                return null;
-            }
-
-            @Override
-            public List<T> subList(int fromIndex, int toIndex) {
-                return null;
-            }
-        };
-
-        Collections.sort(newList, new Comparator<T>() {
-            @Override
-            public int compare(T a, T b){
-                return Collator.getInstance(Locale.ENGLISH).compare(a, b);
-            }
-        });*/
-
         if (liste.tom()){
             return;
         }
