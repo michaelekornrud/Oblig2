@@ -45,7 +45,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         //Kaster et NullPointerException hvis tabellen er tom
         //Eller hvos tabellen bare inneholder "null-verdier".
         Objects.requireNonNull(a, "Tabellen a er Null!");
-        int countNullValues = 0; //Antall verdier som er null
+        int countNullValues= 0; //Antall verdier som er null
 
 
         for (T value : a) { //looper gjennom tabellen med T verdien
@@ -165,8 +165,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         //Tilfelle 1: Hvis listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
             //oppdaterer verdiene
-            hode = node;
-            hale = hode;
+           hode = hale = node;
         }
 
         //Tilfelle 2: Hvis listen ikke er tom
@@ -175,7 +174,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             node.forrige = hale;
             hale.neste = node;
             hale = node;
+
         }
+        //øker antall og endringer
         antall++;
         endringer++;
         return true;
@@ -196,11 +197,16 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     private Node<T> finnNode(int indeks) {
 
+
+
+        indeksKontroll(indeks, true);
+
         //Definerer noden
         Node<T> node;
 
+
         //Hvis indeksen er mindre eller lik midten av listen, så er node  = hode (starten av listen)
-        if(indeks <= antall/2) {
+        if(indeks < antall/2) {
             node = hode;
             //Looper gjennom listen og gir noden nye verdier for å finne verdi fra gitt indeks
             for (int i = 0; i < indeks; i++) {
@@ -212,7 +218,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             node = hale;
             //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
             //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
-            for (int j = antall-1; j > indeks; j--){ node = node.forrige;}
+            for (int j = antall-1; j > indeks; j--){ node = node.forrige; }
         }
 
         //Returnerer noden på gitt indeks
@@ -329,40 +335,40 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         //Tilfelle 1: Hvis listen på forhånd er tom
         if (tom()) { //Bruker metoden tom() for å sjekke om listen er tom
-            //oppdaterer verdiene
-            hode = node;
-            hale = node;
+            //oppdaterer verdiene og gjør slik at hode og hale = den nye veriden (bare en verdi i listen)
+           hode = hale = new Node<>(verdi, null, null);
         }
-
-        //Tilfelle 2: Hvis listen ikke er tom og index = antall
+        //Tilfelle 2: Hvis listen ikke er tom og indeks = 0
+        //Dersom indeks = 0, skal verdien legges inn først i listen.
+        else if (indeks == 0){
+            //Oppdaterer verdiene
+            node.neste = hode; //setter verdien bak den første verdien
+            hode.forrige = node;
+            hode = node; //Gir hode den nye verdien
+        }
+        //Tilfelle 3: Hvis listen ikke er tom og index = antall
         else if (indeks == antall){ //Dersom index = antall skal verdien bli lagt til som hale
             //Oppdaterer verdiene
             node.forrige = hale;
             hale.neste = node;
             hale = node;
         }
-         //Tilfelle 3: Hvis listen ikke er tom og indeks = 0
-        //Dersom indeks = 0, skal verdien legges inn først i listen.
-        else if (indeks == 0){
-            //Oppdaterer verdiene
-            node.neste = hode;
-            hode.forrige = node;
-            hode = node;
-        }
 
         //Tilfelle 4: Hvis listen ikke er tom og 0 < index < antall
         else {
             //Oppretter en hjelpeNode
             Node<T> newNode = hode;
-            for (int i = 1; i < indeks; i++){
+            for (int i = 1; i < indeks; i++){ //Starter på 1 fordi indeks 0 allerede er opptatt
+                //Noden looper videre for å finne gitt indeks
                 newNode = newNode.neste;
-                //newNode peker nå på noden før der den nye skal bli lagt inn.
+
             }
             //Oppdaterer verdiene
             node.neste = newNode.neste;
             newNode.neste = node;
             node.forrige = newNode;
-            node.neste.forrige = node;
+            node.neste.forrige = node.forrige.neste = node;
+
         }
         //Oppdaterer antall og antall endringer
         antall++;
@@ -866,21 +872,36 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         }
 
         int curr_index = 0;
-        int next_index = 0;
         T curr_value = liste.hent(0);
-        T tmp;
-        for (int i = 0; i < liste.antall() -1; ++i){
-            for (int j =  i+ 1; j < liste.antall(); ++j) {
-                curr_index = i;
-                next_index = j;
-                if (liste.hent(i) != null && liste.hent(i + 1) != null) {
-                    curr_value = liste.hent(curr_index);
-                    tmp = liste.hent(next_index);
+        T tmp = curr_value;
+        for (int i = 0; i < liste.antall() - 1; ++i){
+            for (int j = 1; j < liste.antall();  ++j){
+                if (liste.hent(i) != null) {
+                    if (liste.hent(j) != null) {
+                        curr_index = i;
+                        curr_value = liste.hent(i);
+                        tmp = liste.hent(j);
 
-                    //Tilfelle 2: Hvis a er større enn b
-                    if (c.compare(curr_value, tmp) > 0) {
-                        liste.oppdater(curr_index, tmp);
-                        liste.oppdater(next_index, curr_value);
+                        //Tilfelle 1: Hvis verdiene er like --> Trenger ikke å sortere
+                        if (c.compare(curr_value, tmp) == 0) {
+                            return;
+                        }
+                        //Tilfelle 2: Hvis a er større enn b
+                        else if (c.compare(curr_value, tmp) > 0) {
+                            liste.oppdater(i, tmp);
+                            liste.oppdater(j, curr_value);
+                        }
+
+                        //Tilfelle 3: Hvis b er større enn a --> Trenger ikke å sortere
+                        else if (c.compare(curr_value, tmp) < 0) {
+                            return;
+
+                        } else {
+                            System.out.println("Du gjøre feil i den oppgave");
+                        }
+                        System.out.println("Liste: " + liste);
+
+
                     }
                 }
             }
