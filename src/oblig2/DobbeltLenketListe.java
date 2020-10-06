@@ -727,7 +727,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        List<T> newList = new List<T>() {
+        /*List<T> newList = new List<T>() {
             @Override
             public int size() {
                 return 0;
@@ -849,7 +849,47 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             public int compare(T a, T b){
                 return Collator.getInstance(Locale.ENGLISH).compare(a, b);
             }
-        });
+        });*/
+
+        if (liste.tom()){
+            return;
+        }
+
+        int curr_index = 0;
+        T curr_value = liste.hent(0);
+        T tmp = curr_value;
+        for (int i = 0; i < liste.antall() - 1; ++i){
+            for (int j = 1; j < liste.antall();  ++j){
+                if (liste.hent(i) != null) {
+                    if (liste.hent(j) != null) {
+                        curr_index = i;
+                        curr_value = liste.hent(i);
+                        tmp = liste.hent(j);
+
+                        //Tilfelle 1: Hvis verdiene er like --> Trenger ikke å sortere
+                        if (c.compare(curr_value, tmp) == 0) {
+                            return;
+                        }
+                        //Tilfelle 2: Hvis a er større enn b
+                        else if (c.compare(curr_value, tmp) > 0) {
+                            liste.oppdater(i, tmp);
+                            liste.oppdater(j, curr_value);
+                        }
+
+                        //Tilfelle 3: Hvis b er større enn a --> Trenger ikke å sortere
+                        else if (c.compare(curr_value, tmp) < 0) {
+                            return;
+
+                        } else {
+                            System.out.println("Du gjøre feil i den oppgave");
+                        }
+                        System.out.println("Liste: " + liste);
+
+
+                    }
+                }
+            }
+        }
     }
     /*---------------------------------  Slutt på Oppgave 10    ----------------------------------------------------------*/
 
