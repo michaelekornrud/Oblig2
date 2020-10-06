@@ -515,6 +515,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         //Hvis listen bare inneholder 1 verdi
         if (antall == 1){
+            //Gi verdien på indeksen verdi null.
             hode = hale = null;
         }
 
@@ -533,13 +534,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         else
         {
             node = finnNode(indeks); //Finner noden ved hjelp av finnNode metoden som er lagd tidligere
-            node = node.neste; //oppdaterer verdien til noden
-            node = node.forrige;
+            node.forrige.neste = node.neste; //oppdaterer verdien til noden
+            node.neste.forrige= node.forrige;
         }
 
 
         T nodeVverdi = node.verdi; //Verdien som skal returneres
-        node.verdi = null;
+        node.verdi = null; //Gir verdien til indeksen = null
         node.forrige = node.neste = null;
 
 
