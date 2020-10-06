@@ -39,6 +39,22 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         endringer = 0;
     }
 
+    /*------------------------------ Hjelpemetoder --------------------------------------------------------*/
+    public static void fratilKontroll(int tablengde, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+    /*------------------------------ Hjelpemetoder --------------------------------------------------------*/
 
     /*---------------------------------    Oppgave 1    ----------------------------------------------------------*/
     public DobbeltLenketListe(T[] a) {
@@ -187,13 +203,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     private Node<T> finnNode(int indeks) {
 
-
-
-        indeksKontroll(indeks, true);
-
+        indeksKontroll(indeks, false);
         //Definerer noden
         Node<T> node;
-
 
         //Hvis indeksen er mindre eller lik midten av listen, så er node  = hode (starten av listen)
         if(indeks < antall/2) {
@@ -202,17 +214,21 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             for (int i = 0; i < indeks; i++) {
                 node = node.neste;
             }
+
         }
         //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
             node = hale;
             //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
             //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
-            for (int j = antall-1; j > indeks; j--){ node = node.forrige; }
+            for (int j = antall-1; j > indeks; j--)
+            { node = node.forrige; }
+
         }
 
+
         //Returnerer noden på gitt indeks
-       return node;
+        return node;
     }
 
 
@@ -247,12 +263,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         Node<T> node = finnNode(indeks);
         //Definerer den nåverende verdien (gammel verdi)
         T verdi = node.verdi;
+        //Endringer økes
+        endringer++;
 
         //Oppdaterer verdien
         node.verdi = nyverdi;
 
-        //Endringer økes
-       endringer++;
 
         //Returnerer gammel verdi
         return verdi;
@@ -261,7 +277,23 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
     public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
+        //Sjekker om indeksene fra og til er lovlige
+     fratilKontroll(antall, fra, til);
+
+     Liste<T> liste = new DobbeltLenketListe<>();
+     int lengde = til-fra;
+
+     if (lengde < 1){
+         return liste;
+     }
+        Node <T> node = finnNode(fra);
+
+     while (lengde > 0){
+         liste.leggInn(node.verdi);
+         node = node.neste;
+         lengde--;
+     }
+     return liste;
     }
 
     /*---------------------------------  Slutt på Oppgave 3    ----------------------------------------------------------*/
