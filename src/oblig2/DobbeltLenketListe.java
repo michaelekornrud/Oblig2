@@ -685,6 +685,11 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         public void remove() {
 
             if (!fjernOK) throw new IllegalStateException("Ulovlig tilstand");
+
+            if(endringer != iteratorendringer) {
+                throw new ConcurrentModificationException();
+            }
+
             fjernOK = false; //da kan ikke remove() kalles på nytt
 
             Node<T> h = hode; //hjelpevariabel
