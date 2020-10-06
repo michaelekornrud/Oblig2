@@ -39,6 +39,24 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         endringer = 0;
     }
 
+    /*------------------------------ Hjelpemetoder --------------------------------------------------------*/
+    //Hjelpemetode hentet fra kompendie
+
+    public static void fratilKontroll(int tablengde, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new IndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new IndexOutOfBoundsException
+                    ("til(" + til + ") > antall(" + tablengde + ")");
+
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+    /*------------------------------ Hjelpemetoder --------------------------------------------------------*/
 
     /*---------------------------------    Oppgave 1    ----------------------------------------------------------*/
     public DobbeltLenketListe(T[] a) {
@@ -197,13 +215,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     private Node<T> finnNode(int indeks) {
 
-
-
-        indeksKontroll(indeks, true);
-
+        indeksKontroll(indeks, false);
         //Definerer noden
         Node<T> node;
-
 
         //Hvis indeksen er mindre eller lik midten av listen, så er node  = hode (starten av listen)
         if(indeks < antall/2) {
@@ -212,17 +226,21 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             for (int i = 0; i < indeks; i++) {
                 node = node.neste;
             }
+
         }
         //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
             node = hale;
             //looper gjennom listen fra antalll-1 (bakerst i listen) og gir i-- (slik at den leter bakover i listen og ikke fremover)
             //Så gir man noden den nye ferdien frem til den finner verdien på den gitte indeksen
-            for (int j = antall-1; j > indeks; j--){ node = node.forrige; }
+            for (int j = antall-1; j > indeks; j--)
+            { node = node.forrige; }
+
         }
 
+
         //Returnerer noden på gitt indeks
-       return node;
+        return node;
     }
 
 
@@ -257,12 +275,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         Node<T> node = finnNode(indeks);
         //Definerer den nåverende verdien (gammel verdi)
         T verdi = node.verdi;
+        //Endringer økes
+        endringer++;
 
         //Oppdaterer verdien
         node.verdi = nyverdi;
 
-        //Endringer økes
-       endringer++;
 
         //Returnerer gammel verdi
         return verdi;
@@ -271,7 +289,32 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
     public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
+        //Sjekker om indeksene fra og til er lovlige
+     fratilKontroll(antall, fra, til);
+
+    //oppretter listen
+     Liste<T> liste = new DobbeltLenketListe<>();
+
+     //Definerer lengden
+     int lengde = til-fra;
+
+     //Hvis lengden er mindre enn 1, skal listen returneres direkte
+     if (lengde < 1){
+         return liste;
+     }
+     //Oppretter en ny node som gir den verdier finnNode(fra) (finner noden med indeksen fra)
+        Node <T> node = finnNode(fra);
+
+     //Mens lengden er større enn 0 legges verdier fra tabellen inn i listen.
+     while (lengde > 0){
+         liste.leggInn(node.verdi);
+         node = node.neste;
+         //Lengden til tabellen blir mindre
+         lengde--;
+     }
+
+     //Returnerer den nye listen med verider fra til.
+     return liste;
     }
 
     /*---------------------------------  Slutt på Oppgave 3    ----------------------------------------------------------*/
@@ -472,6 +515,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         //Hvis listen bare inneholder 1 verdi
         if (antall == 1){
+            //Gi verdien på indeksen verdi null.
             hode = hale = null;
         }
 
@@ -490,19 +534,19 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         else
         {
             node = finnNode(indeks); //Finner noden ved hjelp av finnNode metoden som er lagd tidligere
-            node = node.neste; //oppdaterer verdien til noden
-            node = node.forrige;
+            node.forrige.neste = node.neste; //oppdaterer verdien til noden
+            node.neste.forrige= node.forrige;
         }
 
 
         T nodeVverdi = node.verdi; //Verdien som skal returneres
-        node.verdi = null;
+        node.verdi = null; //Gir verdien til indeksen = null
         node.forrige = node.neste = null;
 
 
         antall--;   //Antall skal reduseres --
         endringer++;  //endringer skal økes ++
-        return nodeVverdi; //Returnerer verdien til noden på gitt indeks
+        return nodeVverdi; //Returnerer verdien til fjernet node
     }
 
 
@@ -718,22 +762,29 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
             fjernOK = false; //da kan ikke remove() kalles på nytt
 
-            Node<T> h = hode; //hjelpevariabel
 
-            if (hode.neste == denne) { //sjekker om det er den første som skal fjernes
-                hode = hode.neste;  //fjerner den første
-                if (denne == null) hale = null; //det var den eneste noden
-            } else {
-                Node<T> b = hode;    //vi må finne forgjengeren til forgjengeren til denne
-                while (b.neste.neste != denne) {
-                    b = b.neste;  //flytter b
-                }
-                h = b.neste; //nå er det denne som skal fjernes
-                b.neste = denne; //hopper over h
-                if (denne == null) hale = b;
+
+            Node<T> neste = denne;
+            Node<T> forrige = denne.forrige.forrige;
+            //Første tilfellet, hvis den som fjernes er enete verdi:
+            if (antall == 1) {
+                hode = null;
+                hale = null;
             }
-            h.verdi = null; //nuller verdien i noden
-            h.neste = null; //nuller også neste
+            //Andre tilfellet, hvis den siste fjernes:
+                else if(denne.neste == null) {
+                hale = denne.forrige;
+                forrige.neste = null;
+                }
+            //Tredje tilfellet:, hvis den første fjernes:
+                else if(denne.forrige == null) {
+                hode = denne.neste;
+                neste.forrige = null;
+                }
+            //Fjerde tilfellet, hvis en node inne i listen fjernes:
+                else  {
+                    denne.forrige.neste = denne.neste;
+            }
 
             antall--; // oppdaterer antallet noder
             endringer++; // oppdaterer antall endringer

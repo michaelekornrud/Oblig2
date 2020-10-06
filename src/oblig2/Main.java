@@ -76,5 +76,8 @@ public class Main {
         // Tabellen navn er upåvirket:
         System.out.println(Arrays.toString(navn));
         // [Lars, Anders, Bodil, Kari, Per, Berit]
+
+
+
     }
 }
