@@ -546,7 +546,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         antall--;   //Antall skal reduseres --
         endringer++;  //endringer skal økes ++
-        return nodeVverdi; //Returnerer verdien til noden på gitt indeks
+        return nodeVverdi; //Returnerer verdien til fjernet node
     }
 
 
