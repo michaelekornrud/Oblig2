@@ -717,7 +717,11 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             h.verdi = null; //nuller verdien i noden
             h.neste = null; //nuller også neste
 
-            antall--;
+            antall--; // oppdaterer antallet noder
+            endringer++; // oppdaterer antall endringer
+            iteratorendringer++; //og iteratorendringer
+
+
         }
 
 
