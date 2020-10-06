@@ -548,7 +548,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     /*---------------------------------  Slutt på Oppgave 7    ----------------------------------------------------------*/
 
-
     @Override
     public int size() {
         return 0;
@@ -564,17 +563,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         return false;
     }
 
-    /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
-
-
-    /**
-     *
-     * @return en instans av iteratorklassen
-     */
-    @Override
-    public Iterator<T> iterator() {
-        return new DobbeltLenketListeIterator();
-    }
 
     @Override
     public Object[] toArray() {
@@ -621,6 +609,17 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     }
 
+
+    /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
+
+    /**
+     *
+     * @return en instans av iteratorklassen
+     */
+    @Override
+    public Iterator<T> iterator() {
+        return new DobbeltLenketListeIterator();
+    }
     /**
      * Sjekke at indeks er lovlig ved å bruke indeksKontroll(), deretter bruke konstruktøren
      * i oppg c) til å returnere en instans av iteratorklassen
@@ -628,7 +627,8 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      * @return
      */
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks, false);
+        return new DobbeltLenketListeIterator(indeks);
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -647,7 +647,18 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         //Denne skal kodes. 1)Sette pekeren "denne" til noden som hører til den oppgitte indeksen. Resten skal være som i den
         //Ferdigkodete konstruktøren over.
         private DobbeltLenketListeIterator(int indeks){
-            throw new UnsupportedOperationException();
+            Node <T> newNode = new Node(indeks);
+            if (indeks > antall || indeks < 0){
+                throw new IndexOutOfBoundsException("Index utenfor rekkevidde!");
+            }
+            if(indeks >= 0) {
+                denne = newNode;
+                fjernOK = false;//Samme som over
+                iteratorendringer = endringer;
+            }
+            /*else{
+                throw new IndexOutOfBoundsException("Index utenfor rekkevidde");
+            }*/
         }
 
 
