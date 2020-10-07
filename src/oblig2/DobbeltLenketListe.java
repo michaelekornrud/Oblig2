@@ -778,10 +778,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
             }
             else {
-                fjernOK = true;             //lagrer verdien i denne
-                denneVerdi = denne.verdi;   //flytter denne til den neste noden
-                denne = denne.neste;        //og returnerer verdien
-                return denneVerdi;
+                fjernOK = true;
+
+                denneVerdi = denne.verdi;   //lagrer verdien i denne
+
+                denne = denne.neste;        //flytter denne til den neste noden
+
+                return denneVerdi;          //og returnerer verdien
             }
 
         }
@@ -826,13 +829,13 @@ public class DobbeltLenketListe<T> implements Liste<T>{
                 forrige.neste = null;
                 }
             //Tredje tilfellet:, hvis den første fjernes:
-                else if(denne.forrige == null) {
-                hode = denne.neste;
-                neste.forrige = null;
+                else if(denne.forrige == hode) {
+                hode = hode.neste;
+                hode.forrige = null;
                 }
             //Fjerde tilfellet, hvis en node inne i listen fjernes:
                 else  {
-                    denne.forrige.neste = denne.neste;
+
             }
 
             antall--; // oppdaterer antallet noder
