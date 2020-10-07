@@ -815,26 +815,29 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             fjernOK = false; //da kan ikke remove() kalles på nytt
 
 
-
-            Node<T> neste = denne;
-            Node<T> forrige = denne.forrige.forrige;
-            //Første tilfellet, hvis den som fjernes er enete verdi:
+            //Første tilfellet, hvis den som fjernes er eneste verdi:
             if (antall == 1) {
                 hode = null;
                 hale = null;
             }
+
             //Andre tilfellet, hvis den siste fjernes:
-                else if(denne.neste == null) {
-                hale = denne.forrige;
+                Node<T> neste = denne;
+            if(denne == null) {
+                Node<T> forrige = hale.forrige;
+                hale = forrige;
                 forrige.neste = null;
-                }
+            }
             //Tredje tilfellet:, hvis den første fjernes:
                 else if(denne.forrige == hode) {
-                hode = hode.neste;
-                hode.forrige = null;
+                    hode = neste;
+                    neste.forrige = null;
                 }
             //Fjerde tilfellet, hvis en node inne i listen fjernes:
-                else  {
+                else {
+                Node<T> forrige = denne.forrige.forrige;
+                    forrige.neste = neste;
+                    neste.forrige = forrige;
 
             }
 
