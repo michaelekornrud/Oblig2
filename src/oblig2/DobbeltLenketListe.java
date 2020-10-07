@@ -2,7 +2,6 @@ package oblig2;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-import java.text.Collator;
 import java.util.*;
 
 
@@ -96,7 +95,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             return 0;
         }
         antall = 0;
-        Node current = hode;
+        Node<T> current = hode;
 
         while (current != null){
             current = current.neste; //oppdaterer det nåverende tallet.
@@ -112,11 +111,19 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      */
     @Override
     public boolean tom() {
-        if (antall == 0){
-            return true;
-        }
-        else return false;
+        // Enkleste måten, likevell effektiv og det IntelliJ ønsket
+            return (antall == 0);
+
+        // Ternary-if for å sjekke om en liste er tom. ///////////
+        //  return (antall == 0) ? true : false;
+
+        //Vanlig if-else for å sjekke om en liste er tom. /////////
+            /*if (antall == 0){
+                return true;
+            }
+            else return false;*/
     }
+
 
     /*---------------------------------  Slutt på Oppgave 1    ----------------------------------------------------------*/
 
@@ -209,7 +216,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      * Sjekker om indeksen er mindre enn antall/2. Hvis den gjør det startes letingen fra hode
      * og går mot høyre ved hjelp av neste-pekere.
      * Hvis ikke skal letingen starte fra halen og gå mot venstre ved hjelp av forrige-pekere.
-     * @param indeks
+     * @param indeks til node
      * @return noden med den gitte indeksen/posisjonen
      */
 
@@ -245,8 +252,8 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /**
      * Henter nodens indeks og verdien dens
      * Sjekker indeks.
-     * @param indeks
-     * @return
+     * @param indeks til node
+     * @return ny verdi
      */
     @Override
     public T hent(int indeks) {
@@ -258,9 +265,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
      * Passer på at man ikke kan legge inn null-verdier.
      * Metoden skal erstatte verdien på plass indeks med nyverdi og returnere det som lå der fra før.
      * Sjekker indeks og variabelen endringer økes.
-     * @param indeks
-     * @param nyverdi
-     * @return
+     * @param indeks til node
+     * @param nyverdi til node
+     * @return ny verdi
      */
     @Override
     public T oppdater(int indeks, T nyverdi) {
@@ -357,8 +364,8 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /**
      * Skal legge verdi inn i listen, og den får indeks/posisjon "indeks"
      * Når verdi legges inn riktig i forhold til neste/forrige-pekere, skal endringer og antall oppdateres
-     * @param indeks
-     * @param verdi
+     * @param indeks til node
+     * @param verdi til node
      */
     @Override
     public void leggInn(int indeks, T verdi) {
@@ -433,7 +440,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /**
      * Skal fjerne verdi fra listen. Hvis det er flere forekomster er det den første som skal fjernes (fra venstre), return true
      * Hvis verdi ikke finnes, skal det returneres false.
-     * @param verdi
+     * @param verdi til node
      * @return true/false ettersom verdi blir fjernet eller ikke
      */
     @Override
@@ -501,7 +508,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /**
      * Denne skal fjerne og returnere verdien på posisjonen "indeks".
      * Her må vi også sjekke indeks først.
-     * @param indeks
+     * @param indeks til node
      * @return verdien på posisjonen "indeks"
      */
     @Override
@@ -718,8 +725,8 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     /**
      * Sjekke at indeks er lovlig ved å bruke indeksKontroll(), deretter bruke konstruktøren
      * i oppg c) til å returnere en instans av iteratorklassen
-     * @param indeks
-     * @return
+     * @param indeks til node
+     * @return h
      */
     public Iterator<T> iterator(int indeks) {
         indeksKontroll(indeks, false);
@@ -746,13 +753,10 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             if (indeks > antall || indeks < 0) {
                 throw new IndexOutOfBoundsException("Index utenfor rekkevidde!");
             }
-            if (indeks >= 0) {
-                denne = newNode;
-                fjernOK = false;//Samme som over
-                iteratorendringer = endringer;
-            }
+            denne = newNode;
+            fjernOK = false;//Samme som over
+            iteratorendringer = endringer;
         }
-
 
         //Er ferdigkodet og skal IKKE endres
         @Override
@@ -844,11 +848,11 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
 
 
-
+    } // class DobbeltLenketListeIterator
 
         /*---------------------------------  Slutt på Oppgave 9    ----------------------------------------------------------*/
 
-    } // class DobbeltLenketListeIterator
+
 
 
     /*---------------------------------   Oppgave 10    ----------------------------------------------------------*/
@@ -858,9 +862,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             return;
         }
 
-        int curr_index = 0;
-        int next_index = 0;
-        T curr_value = liste.hent(0);
+        int curr_index;
+        int next_index;
+        T curr_value;
         T tmp;
         for (int i = 0; i < liste.antall() - 1; ++i){
             for (int j = i + 1; j < liste.antall();  ++j){
