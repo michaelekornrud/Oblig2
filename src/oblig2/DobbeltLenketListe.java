@@ -124,7 +124,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             else return false;*/
     }
 
-
     /*---------------------------------  Slutt på Oppgave 1    ----------------------------------------------------------*/
 
 
@@ -233,6 +232,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             for (int i = 0; i < indeks; i++) {
                 node = node.neste;
             }
+
         }
         //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
@@ -243,6 +243,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             { node = node.forrige; }
 
         }
+
 
         //Returnerer noden på gitt indeks
         return node;
@@ -597,7 +598,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     /*---------------------------------  Slutt på Oppgave 7    ----------------------------------------------------------*/
 
-
     @Override
     public int size() {
         return 0;
@@ -706,12 +706,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
     }
+
+
     /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
-
-
-
-
-
 
     /**
      *
@@ -757,6 +754,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             fjernOK = false;//Samme som over
             iteratorendringer = endringer;
         }
+
 
         //Er ferdigkodet og skal IKKE endres
         @Override
