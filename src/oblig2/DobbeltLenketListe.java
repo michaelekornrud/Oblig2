@@ -226,7 +226,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             for (int i = 0; i < indeks; i++) {
                 node = node.neste;
             }
-
         }
         //Hvis indeksen er større enn halvparten av listen, blir noden definert som halen (slutten av listen)
         else {
@@ -237,7 +236,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             { node = node.forrige; }
 
         }
-
 
         //Returnerer noden på gitt indeks
         return node;
@@ -592,6 +590,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
     /*---------------------------------  Slutt på Oppgave 7    ----------------------------------------------------------*/
 
+
     @Override
     public int size() {
         return 0;
@@ -606,8 +605,6 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     public boolean contains(Object o) {
         return false;
     }
-
-
     @Override
     public Object[] toArray() {
         return new Object[0];
@@ -702,9 +699,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
     }
-
-
     /*---------------------------------  Oppgave 8    ----------------------------------------------------------*/
+
+
+
+
+
 
     /**
      *
@@ -714,6 +714,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     public Iterator<T> iterator() {
         return new DobbeltLenketListeIterator();
     }
+
     /**
      * Sjekke at indeks er lovlig ved å bruke indeksKontroll(), deretter bruke konstruktøren
      * i oppg c) til å returnere en instans av iteratorklassen
@@ -740,12 +741,12 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         //Denne skal kodes. 1)Sette pekeren "denne" til noden som hører til den oppgitte indeksen. Resten skal være som i den
         //Ferdigkodete konstruktøren over.
-        private DobbeltLenketListeIterator(int indeks){
-            Node <T> newNode = finnNode(indeks);
-            if (indeks > antall || indeks < 0){
+        private DobbeltLenketListeIterator(int indeks) {
+            Node<T> newNode = finnNode(indeks);
+            if (indeks > antall || indeks < 0) {
                 throw new IndexOutOfBoundsException("Index utenfor rekkevidde!");
             }
-            if(indeks >= 0) {
+            if (indeks >= 0) {
                 denne = newNode;
                 fjernOK = false;//Samme som over
                 iteratorendringer = endringer;
@@ -774,16 +775,11 @@ public class DobbeltLenketListe<T> implements Liste<T>{
             T denneVerdi ;
             if (!hasNext()) {
                 throw new NoSuchElementException();
-
-
             }
             else {
                 fjernOK = true;
-
                 denneVerdi = denne.verdi;   //lagrer verdien i denne
-
                 denne = denne.neste;        //flytter denne til den neste noden
-
                 return denneVerdi;          //og returnerer verdien
             }
 
@@ -838,6 +834,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
             }
 
+
             antall--; // oppdaterer antallet noder
             endringer++; // oppdaterer antall endringer
             iteratorendringer++; //og iteratorendringer
@@ -862,37 +859,23 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         }
 
         int curr_index = 0;
+        int next_index = 0;
         T curr_value = liste.hent(0);
-        T tmp = curr_value;
+        T tmp;
         for (int i = 0; i < liste.antall() - 1; ++i){
-            for (int j = 1; j < liste.antall();  ++j){
-                if (liste.hent(i) != null) {
-                    if (liste.hent(j) != null) {
-                        curr_index = i;
-                        curr_value = liste.hent(i);
-                        tmp = liste.hent(j);
+            for (int j = i + 1; j < liste.antall();  ++j){
+                curr_index = i;
+                next_index = j;
+                if (liste.hent(i) != null && liste.hent(j) != null) {
+                    curr_value = liste.hent(curr_index);
+                    tmp = liste.hent(next_index);
 
-                        //Tilfelle 1: Hvis verdiene er like --> Trenger ikke å sortere
-                        if (c.compare(curr_value, tmp) == 0) {
-                            return;
-                        }
+
                         //Tilfelle 2: Hvis a er større enn b
-                        else if (c.compare(curr_value, tmp) > 0) {
+                         if (c.compare(curr_value, tmp) > 0) {
                             liste.oppdater(i, tmp);
                             liste.oppdater(j, curr_value);
                         }
-
-                        //Tilfelle 3: Hvis b er større enn a --> Trenger ikke å sortere
-                        else if (c.compare(curr_value, tmp) < 0) {
-                            return;
-
-                        } else {
-                            System.out.println("Du gjøre feil i den oppgave");
-                        }
-                        System.out.println("Liste: " + liste);
-
-
-                    }
                 }
             }
         }
