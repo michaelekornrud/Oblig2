@@ -796,7 +796,9 @@ public class DobbeltLenketListe<T> implements Liste<T>{
         @Override
         public void remove() {
 
-            if (!fjernOK) throw new IllegalStateException("Ulovlig tilstand");
+            if (!fjernOK) {
+                throw new IllegalStateException("Ulovlig tilstand");
+            }
 
             if(endringer != iteratorendringer) {
                 throw new ConcurrentModificationException();
@@ -804,49 +806,43 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
                 fjernOK = false; //da kan ikke remove() kalles på nytt
 
-            try {
-                //Første tilfellet, hvis den som fjernes er eneste verdi:
-                if (antall == 1) {
-                    hode = hale = null;
+
+            //Sjekker om listen er tom
+            if(hode == null) {
+                return;
+            }
+            //Hvis det bare er en node
+            if(antall == 1) {
+                hode = hale = null;
+            }
+            else {
+                Node<T> neste = denne;
+                //Hvis den siste noden skal fjernes
+                if(denne == null) {
+                    Node<T> forrige = hale.forrige;
+                    hale = forrige;
+                    forrige.neste = null;
                 }
-
-                //Andre tilfellet, hvis den siste fjernes:
-                Node<T> current = denne;
-                Node <T> siste = hale.forrige.forrige;
-                if (denne.neste == null){
-                   siste.neste = null;
-                   hale = siste;
-
-
+                //Hvis den første noden skal fjernes
+                else if (denne.forrige == hode) {
+                    hode = neste;
+                    neste.forrige = null;
                 }
-
-                //Tredje tilfellet:, hvis den første fjernes:
-                 if (denne.forrige == hode) {
-                    hode = current;
-                    current.forrige = null;
-                }
-                //Fjerde tilfellet, hvis en node inne i listen fjernes:
+                //Hvis en node i midten skal fjernes
                 else {
                     Node<T> forrige = denne.forrige.forrige;
-                    forrige.neste = current;
-                    current.forrige = forrige;
-                    return;
-
+                    forrige.neste = neste;
+                    neste.forrige = forrige;
                 }
+
+            }
                 antall--; // oppdaterer antallet noder
                 endringer++; // oppdaterer antall endringer
                 iteratorendringer++; //og iteratorendringer
             }
-            catch (Exception e){
-
-            }
-
-
-
-
 
         }
-    }// class DobbeltLenketListeIterator
+    // class DobbeltLenketListeIterator
 
         /*---------------------------------  Slutt på Oppgave 9    ----------------------------------------------------------*/
 
