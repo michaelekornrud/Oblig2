@@ -10,6 +10,7 @@ public class Main {
 
         //Test av oppgave 1 a og b (antall og tom)
         //Skal returnere "0 true"
+        System.out.println("Oppgave 1");
         DobbeltLenketListe<String> listeA = new DobbeltLenketListe<>();
         System.out.println(listeA.antall()+" "+listeA.tom());
 
@@ -21,7 +22,8 @@ public class Main {
         System.out.println(listeB.antall()+ " "+listeB.tom());
 
 
-        //Oppgave 2 a
+        ////Oppgave 2 a ////////////////////////
+        System.out.println("Oppgave 2");
 
         String [] s1 = {}, s2 = {"A"}, s3 = {null, "A", null, "B", null};
         DobbeltLenketListe<String> l1 = new DobbeltLenketListe<>(s1);
@@ -35,7 +37,7 @@ public class Main {
                +l1.omvendtString()+" "+l2.omvendtString()+" "+l3.omvendtString());
 
         //// Oppgave 2 b //////////////////
-        /*DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
         System.out.println(liste.toString() + " " + liste.omvendtString());
         for (int i = 1; i <= 3; i++)
         {
@@ -46,11 +48,12 @@ public class Main {
         // [] []
         // [1] [1]
         // [1, 2] [2, 1]
-        // [1, 2, 3] [3, 2, 1]*/
+        // [1, 2, 3] [3, 2, 1]
 
 
 
         ////Ooppgave 4 ////
+        System.out.println("Oppgave 4");
         DobbeltLenketListe<String> sliste = new DobbeltLenketListe<>();
         sliste.leggInn("A"); //indeks 0
         sliste.leggInn("B"); //indeks 1
@@ -59,7 +62,16 @@ public class Main {
         System.out.println(sliste.indeksTil(String.valueOf(1)));
 
 
+        //// Oppgave 9 ////////////////
+        System.out.println("Oppgave 9");
+        DobbeltLenketListe<String> liste9 =
+                new DobbeltLenketListe<>(new String[] {"Birger","Lars","Anders","Bodil","Kari","Per","Berit"});
+        liste9.fjernHvis(navn -> navn.charAt(0) == 'B'); // fjerner navn som starter med B
+        System.out.println(liste + " " + liste9.omvendtString());
+        // Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
+
         //// Oppgave 10 ///////////////
+        System.out.println("Oppgave 10");
         String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
 
         Liste<String> liste1 = new DobbeltLenketListe<>(navn);
