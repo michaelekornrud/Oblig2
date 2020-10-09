@@ -1172,24 +1172,20 @@ class DobbeltLenketListeTest {
             antallFeil++;
             System.out.println
                     ("Oppgave 9a: Feil i antall-oppdatering i remove()!");
-            System.out.println("Liste.antall : " + liste.antall());
         }
 
         if (!liste.toString().equals("[2, 4, 6, 8, 10, 12]")) {
             antallFeil++;
             System.out.println("Oppgave 9b: Feil i remove()!");
-            System.out.println("fra 9b: " + liste.toString());
         }
 
         if (!liste.omvendtString().equals("[12, 10, 8, 6, 4, 2]")) {
             antallFeil++;
             System.out.println("Oppgave 9c: Feil i remove()!");
-            System.out.println("Liste.omvendt : " + liste.omvendtString());
         }
 
         // fjerner alle i listen
         Iterator<Integer> j = liste.iterator();
-        System.out.println("Fra 9d før: " + liste.toString());
         for (; j.hasNext(); ) {
             j.next();
             j.remove();
@@ -1198,7 +1194,6 @@ class DobbeltLenketListeTest {
         if (!liste.toString().equals("[]")) {
             antallFeil++;
             System.out.println("Oppgave 9d: Feil når remove() har slettet alle!");
-            System.out.println("Fra 9d: " + liste.toString());
         }
 
         try {
