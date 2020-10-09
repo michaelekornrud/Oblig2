@@ -21,10 +21,10 @@ Oppgaven er levert av følgende studenter:
 Vi har brukt git til å dokumentere arbeidet vårt. Vi har 16 commits totalt, og hver logg-melding beskriver det vi har gjort av endringer.
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
-* Aina har hatt hovedansvar for oppgave 
-* Johannes har hatt hovedansvar for oppgave 
+* Aina har hatt hovedansvar for oppgave 9 og 8ab).
+* Johannes har hatt hovedansvar for oppgave 6, 7 og 8cd).
 * Michael har hatt hovedansvar for oppgave 2b, 5, og 10.  
-* Vi har i fellesskap løst oppgave 1, 2, 8 og 9. 
+* Vi har i fellesskap løst oppgave 1, 2, 3 og 8. 
 
 # Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
 
@@ -36,7 +36,9 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Oppgave 2: ...
              2b) Bruker requireNonNull på input-verdi --> sjekker om listen er tom --> legger inn verdien på hode og hale.
              Hvis listen ikke er tom, oppdaterer vi halen og verdien blir lagt til bakerst i listen. 
-* Oppgave 3: ...
+* Oppgave 3: a) Sjekker indeks ift om listen skal starte på hode eller hale. Looper gjennom listen og gir noden nye verdier og 
+             finner indeks. Metode hent() som henter nodens indeks og dens verdi, samt sjekker indeksen. oppdater(), sjekker om indeks og nyverdi er lovlige verdier -> kaster evt feilmelding. Bruker finnNode-metoden til å definere node og oppdaterer verdien til noden. 
+             b)Sjekker om indeksene fra og til er lovlige, og oppretter deretter listen. Returnerer direkte om lengden er mindre enn 1. Bruker finnNode og finner noden med indeks fra. Mens lengden er større enn 0, legges verdier fra tabellen inn i listen og minker lengden. Returnerer den nye listen med verdier fra til. 
 * Oppgave 4: ...
 
 * Oppgave 5: Løste ved å først sjekke om listen er tom --> sette hode og hale til verdien
@@ -46,8 +48,14 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
              og oppdaterer verdiene til slutt. 
              
 * Oppgave 6: ...
+
 * Oppgave 7: ...
-* Oppgave 8: ...
+
+* Oppgave 8: a) Sjekker om iteratorendringer er lik endringer, kaster en ConcurrentModificationException hvis ikke. Hvis hasNext() ikke er true, kastes en NoSuchElementException (altså hvis det ikke er flere igjen i listen). Setter fjernOk til true. Verdien tl denne lagres i denneVerdi og denne flyttes til neste node. Verdien til denne returneres. 
+             b) Returnerer en instans av iteratorklassen.
+             c) Bruker finnNode til å finne indeksen og oppretter en node med denne. Sjekker om indeks er større enn antall og mindre enn 0, hvis det er tilfellet, kastes en IndexOutOfBoundsException. Setter denne = newNode, som er den nye noden med indeks. fjernOk = false blir sann når next() kalles. (Som i den ferdigkodede konstruktøren. 
+             d) Bruker indeksKontroll til å sjekke om indeks er lovlig, deretter returneres en instans av iteratorklassen ved hjelp av konstruktøren i c).
+             
 * Oppgave 9: Først sjekker vi om listen er tom --> kan ikke fjerne fra en tom liste. Deretter sjekker vi om antall = 1 og setter hode og hale = null
              Så sjekker vi om halen skal fjernes --> oppdaterer hale til hale.forige, så sjekker vi om hode skal fjernes og setter hode = hode.neste
              Til slutt sjekker vi om det er en tilfeldig verdi som skal fjernes og oppdaterer veriene før og etter 
@@ -61,11 +69,11 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 
 Vi får 2 feil når vi kjører testene. Èn på oppgave 3a og èn på oppgave 6zg
 * Oppgave 3a: Testen bruker omlag 5000 ms på å kjøre gjennom, og vi får beskjed om at dette går "altfor sakte". Ut ifra 
-              hva vi forstår er det metoden finnNode() som bruker for lang tid, men vi finner desverre ingen annen løsning som 
+              hva vi forstår er det metoden finnNode() som bruker for lang tid, men vi finner dessverre ingen annen løsning som 
               fungerer og er innenfor tidskravene.  
 
 * Oppgave 6zg: Testen for hele oppgave 6 bruker omlag 8000 ms på å kjøre gjennom. Her har vi klart å fjerne omlag 1 sek av den
-               opprinnelige tiden, men det var desverre ikke nok. Tiden løper fra oss og vi må desverre lever slik som dette. 
+               opprinnelige tiden, men det var desverre ikke nok. Tiden løper fra oss og vi må dessverre lever slik som dette. 
                
 * Helhetlig: Vi har brukt mye tid og hatet på noen av oppgavene, men vi føler alle at vi har lært masse. Vi har hjulpet hverandre 
-             der har vert nødvendig og vi har jobbet godt som et team, selvom vi stort sett har sittet hver for oss. 
+             der det har vært nødvendig og vi har jobbet godt som et team, selvom vi stort sett har sittet hver for oss. 
