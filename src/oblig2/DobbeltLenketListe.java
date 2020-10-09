@@ -507,14 +507,14 @@ public class DobbeltLenketListe<T> implements Liste<T>{
     @Override
     public T fjern(int indeks) {
 
-     indeksKontroll(indeks, false);     //Sjekker om index er gyldig
+    /* indeksKontroll(indeks, false);     //Sjekker om index er gyldig
      Node<T> newNode = finnNode(indeks);       //Finner verdien på plass index
      T value =  newNode.verdi;                 //Henter verdien på plass index
      fjern(value);                             //Bruker fjern-metoden over til å fjerne verdien på plass index
-     return value;                             //Returnerer fjernet verdi
+     return value;                             //Returnerer fjernet verdi*/
 
         //Hard-coded versjon av det som skjer over.
-       /* Node<T> node = hode;
+        Node<T> node = hode;
 
         //Hvis listen bare inneholder 1 verdi
         if (antall == 1){
@@ -549,7 +549,7 @@ public class DobbeltLenketListe<T> implements Liste<T>{
 
         antall--;   //Antall skal reduseres --
         endringer++;  //endringer skal økes ++
-        return nodeVverdi; //Returnerer verdien til fjernet node*/
+        return nodeVverdi; //Returnerer verdien til fjernet node
     }
 
 

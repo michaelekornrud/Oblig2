@@ -33,7 +33,12 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
              tom(): vi har 3 forksjellige måter å løse denne på, men valgte å gå for den IntelliJ "likte" best. Metoden returnerer
              false dersom antall > 0 og true dersom antall = 0. 
              
-* Oppgave 2: ...
+* Oppgave 2: 2a) 
+                Sjekker først om listen er tom ved hjelp av metoden tom(). Hvis listen er tom skal det returneres [].
+                Bruker deretter en stringJoiner for å lage malen som verdiene senere skal legges inn i. Malen er da at tallene skal legges inn i en firkantet patentes [] med "," mellom hver verdi. 
+                Looper så gjennom listen og legger til verdiene i stringjoiner.
+                Returnerer til slutt stringJoiner med oppdaterte verdier. 
+                
              2b) Bruker requireNonNull på input-verdi --> sjekker om listen er tom --> legger inn verdien på hode og hale.
              Hvis listen ikke er tom, oppdaterer vi halen og verdien blir lagt til bakerst i listen. 
              
@@ -42,7 +47,10 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
              
      b)Sjekker om indeksene fra og til er lovlige, og oppretter deretter listen. Returnerer direkte om lengden er mindre enn 1. Bruker finnNode og finner noden med indeks fra. Mens lengden er større enn 0, legges verdier fra tabellen inn i listen og minker lengden. Returnerer den nye listen med verdier fra til.
              
-* Oppgave 4: ...
+* Oppgave 4: Starter med å initialisere indeks som senere skal oppdateres og returneres. 
+             Lager deretter en for-loop som looper gjennom listen frem til noden er null. Når noden er null stopper loopen.
+             Tar så en if-sjekk for å sjekke om noden sin nåverende verdi er lik input verdi. Hvis den er det, returneres indeksen. Hvis ikke så looper noden videre til neste verdi, og indeksen oppdateres.
+             Til slutt returneses -1 hvis verdien ikke eksisterer i listen. 
 
 * Oppgave 5: Løste ved å først sjekke om listen er tom --> sette hode og hale til verdien
              Så sjekket jeg om index = 0 --> legge verdien inn til hode (index 0). 
@@ -50,9 +58,15 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
              Til slutt, hvis verdien skal legges inn et tilfeldig sted --> looper gjennom fra 1 til index, 
              og oppdaterer verdiene til slutt. 
              
-* Oppgave 6: ...
+* Oppgave 6: Definerer først en ny node av verdi T, og gir den verdi hode. 
+             Så lages det en if test som sier at hvis listen sitt antall er 1, er hode og hale lik null. Dvs at listen sin verdi blir oppdatert og får verdien null.
+             Så går metoden gjennom 3 ulike tilfeller som er beskrevet i oppgaveteksen, og oppdaterer verdiene i listen.
+             Til slutt oppdateres antall og endringer, og verdien til indeksen som er fjernet, blir returnert. 
 
-* Oppgave 7: ...
+* Oppgave 7: Denne oppgaven skal nullstille en listen av verdier, 
+             Først lages en ny node og den noden får verdi hode.
+             Så loopes det gjennom listen (så lenge noden sin verdin ikke er null), og verdiene blir oppdatert til å få verdi null.
+             Til slutt settes både hode og hale til null, antall til 0 og endringer økes. 
 
 * Oppgave 8: a) Sjekker om iteratorendringer er lik endringer, kaster en ConcurrentModificationException hvis ikke. Hvis hasNext() ikke er true, kastes en            NoSuchElementException (altså hvis det ikke er flere igjen i listen). Setter fjernOk til true. Verdien tl denne lagres i denneVerdi og denne flyttes til neste node.    Verdien til denne returneres. 
 
