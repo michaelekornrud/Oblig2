@@ -18,7 +18,7 @@ Oppgaven er levert av følgende studenter:
 - Aina Turum Wangsmo, s341826, s341826@oslomet.no
 - Ole-Michael Ekornrud, s341866, s341866@oslomet.no
 
-Vi har brukt git til å dokumentere arbeidet vårt. Vi har 16 commits totalt, og hver logg-melding beskriver det vi har gjort av endringer.
+Vi har brukt git til å dokumentere arbeidet vårt. Vi har 97 commits totalt, og hver logg-melding beskriver det vi har gjort av endringer.
 
 I oppgaven har vi hatt følgende arbeidsfordeling:
 * Aina har hatt hovedansvar for oppgave 9 og 8ab).
