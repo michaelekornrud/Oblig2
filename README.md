@@ -40,7 +40,7 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Oppgave 3: a) Sjekker indeks ift om listen skal starte på hode eller hale. Looper gjennom, gir noden nye verdier og 
              finner indeks. Metode hent() som henter nodens indeks og dens verdi, samt sjekker indeksen. oppdater(), sjekker om indeks og nyverdi er lovlige verdier -> kaster evt feilmelding. Bruker finnNode-metoden til å definere node og oppdaterer verdien til noden. 
              
-             b)Sjekker om indeksene fra og til er lovlige, og oppretter deretter listen. Returnerer direkte om lengden er mindre enn 1. Bruker finnNode og finner noden med indeks fra. Mens lengden er større enn 0, legges verdier fra tabellen inn i listen og minker lengden. Returnerer den nye listen med verdier fra til.
+     b)Sjekker om indeksene fra og til er lovlige, og oppretter deretter listen. Returnerer direkte om lengden er mindre enn 1. Bruker finnNode og finner noden med indeks fra. Mens lengden er større enn 0, legges verdier fra tabellen inn i listen og minker lengden. Returnerer den nye listen med verdier fra til.
              
 * Oppgave 4: ...
 
@@ -56,10 +56,11 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 
 * Oppgave 8: a) Sjekker om iteratorendringer er lik endringer, kaster en ConcurrentModificationException hvis ikke. Hvis hasNext() ikke er true, kastes en            NoSuchElementException (altså hvis det ikke er flere igjen i listen). Setter fjernOk til true. Verdien tl denne lagres i denneVerdi og denne flyttes til neste node.    Verdien til denne returneres. 
 
-             b) Returnerer en instans av iteratorklassen.
+     b) Returnerer en instans av iteratorklassen.
              
-             c) Bruker finnNode til å finne indeksen og oppretter en node med denne. Sjekker om indeks er større enn antall og mindre enn 0, hvis det er tilfellet, kastes en IndexOutOfBoundsException. Setter denne = newNode, som er den nye noden med indeks. fjernOk = false blir sann når next() kalles. (Som i den ferdigkodede konstruktøren. 
-             d) Bruker indeksKontroll til å sjekke om indeks er lovlig, deretter returneres en instans av iteratorklassen ved hjelp av konstruktøren i c).
+     c) Bruker finnNode til å finne indeksen og oppretter en node med denne. Sjekker om indeks er større enn antall og mindre enn 0, hvis det er tilfellet, kastes en IndexOutOfBoundsException. Setter denne = newNode, som er den nye noden med indeks. fjernOk = false blir sann når next() kalles. (Som i den ferdigkodede konstruktøren. 
+     
+     d) Bruker indeksKontroll til å sjekke om indeks er lovlig, deretter returneres en instans av iteratorklassen ved hjelp av konstruktøren i c).
              
 * Oppgave 9: Først sjekker vi om listen er tom --> kan ikke fjerne fra en tom liste. Deretter sjekker vi om antall = 1 og setter hode og hale = null
              Så sjekker vi om halen skal fjernes --> oppdaterer hale til hale.forige, så sjekker vi om hode skal fjernes og setter hode = hode.neste
